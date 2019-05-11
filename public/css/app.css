@@ -1,0 +1,89 @@
+.gradient-red {
+  background: linear-gradient(-35deg, #9119B3 0%, #E64C4C 88%);
+}
+
+.gradient-border {
+  position: relative;
+  transition: 0.3s;
+}
+
+.gradient-border::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  height: 2px;
+  width: 100%;
+  transition: all 0.3s ease-in-out 0s;
+  opacity: 1;
+}
+
+.img-circle {
+  border-radius: 50%;
+}
+
+.panel {
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) !important;
+}
+
+.fixed-fluid [class*=fixed-] {
+  background-color: transparent !important;
+}
+
+.select {
+  width: 100%;
+}
+
+.select select {
+  width: 100%;
+}
+
+.mail-attach-list > li {
+  vertical-align: top;
+}
+
+.mail-attach-list > li.add-image .mail-file-icon {
+  height: 200px;
+}
+
+.mail-attach-list > li.add-image #icon-add {
+  font-size: 75px;
+  line-height: 200px;
+  opacity: 0.4;
+}
+
+.mail-attach-list li #image-delete {
+  font-size: 1.33em;
+  line-height: 1em;
+  opacity: 1;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex .inline#color {
+  flex: 0 0 70%;
+}
+
+.flex .inline#codigo {
+  flex: 0 0 30%;
+  padding: 0 !important;
+  border: none;
+  height: 38px;
+  margin-top: -4px;
+}
+
+@media (min-width: 768px) {
+  .navbar-header:before {
+    background-color: #fff !important;
+  }
+
+  .brand-title {
+    color: #25476a !important;
+  }
+}
+

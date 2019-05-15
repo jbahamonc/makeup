@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class ProductoController extends Controller
 {
@@ -80,5 +81,19 @@ class ProductoController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function uploadImg (Request $req) {
+        $files = $req->file('file');
+        $arr = array();
+        foreach ($files as $img) {
+            $url = $img->store('tmp', 'public');
+            $arr[] = [
+                'message' => 'Image saved Successfully',
+                'imagen' => $url
+            ];
+        }
+
+        return response()->json($arr, 200);
     }
 }

@@ -86,4 +86,13 @@ class IndexController extends Controller
             ]);
         }
     }
+
+    function productoPromociones($id) {
+        $promo = \App\promocion::where('id', $id)->get();
+        foreach($promo as $p) {
+            $p->productos;
+        }
+
+        return $promo;
+    }
 }

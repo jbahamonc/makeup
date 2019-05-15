@@ -61,6 +61,10 @@
   opacity: 1;
 }
 
+.mail-attach-list .thumbnail .mail-file-img {
+  position: relative;
+}
+
 .flex {
   display: flex;
 }

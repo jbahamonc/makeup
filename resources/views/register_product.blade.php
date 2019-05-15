@@ -33,6 +33,7 @@
                         </div>  
                         <div id="dz-previews">
                             <div id="dz-template" class="pad-top bord-top">
+                                @csrf
                                 <div class="media">
                                     <div class="media-body">
                                             <!--This is used as the file preview template-->
@@ -44,10 +45,10 @@
                                                 <p class="text-main text-bold mar-no text-overflow" data-dz-name></p>
                                                 <span class="dz-error text-danger text-sm" data-dz-errormessage></span>
                                                 <p class="text-sm" data-dz-size></p>
-                                                <div id="dz-total-progress" style="opacity:0">
-                                                        <div class="progress progress-xs active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                                                <div class="dz-total-progress" style="opacity:0">           
+                                                    <div class="progress progress-xs active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
                                                         <div class="progress-bar progress-bar-success" style="width:0%;" data-dz-uploadprogress></div>
-                                                    </div>
+                                                    </div>                     
                                                 </div>
                                             </div>
                                         </div>
@@ -116,7 +117,7 @@
                             <li>
                                 <div class="thumbnail">
                                     <div class="mail-file-img">
-                                        <img class="image-responsive" src="http://www.themeon.net/nifty/v2.9.1/img/bg-img/bg-img-4.jpg" alt="image">
+                                        <img class="image-responsive" style="max-width: 100% !important" src="{{ asset('image/img-placeholder.jpg') }}" alt="image">
                                     </div>
                                     <div class="caption text-center">
                                         <div class="flex">

@@ -25,11 +25,13 @@ Route::get('/categorias', 'CategoriaController@index');
 Route::get('/promociones', 'PromocionController@index');
 Route::get('/promociones/crear', 'PromocionController@create');
 Route::get('/pedidos', 'PedidoController@index');
+Route::post('/uploads', 'ProductoController@uploadImg');
 
 // Rutas de la api
 Route::prefix('api/v1')->group(function () {
     Route::get('productos', 'IndexController@index');
     Route::get('promociones', 'IndexController@promociones');
+    Route::get('promociones/{id}', 'IndexController@productoPromociones');
     Route::get('categorias', 'IndexController@categorias');
     Route::get('productos/{id}', 'IndexController@detalleProducto');
     Route::get('categoria_producto/{id}', 'IndexController@productosCategoria');

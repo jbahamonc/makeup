@@ -82,6 +82,12 @@
       opacity: 1;
     }
   }
+
+  .thumbnail {
+    .mail-file-img {
+      position: relative;
+    }
+  }
 }
 
 .flex {
@@ -107,5 +113,5 @@
 
   .brand-title {
     color: #25476a !important;
-}
+  }
 }

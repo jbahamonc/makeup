@@ -75,7 +75,7 @@
     }
   }
 
-  li {    
+  li {
     #image-delete {
       font-size: 1.33em;
       line-height: 1em;
@@ -93,10 +93,10 @@
 .flex {
   display: flex;
   .inline {
-    &#color {
+    &.color {
       flex: 0 0 70%;
     }
-    &#codigo {
+    &.codigo {
       flex: 0 0 30%;
       padding: 0 !important;
       border: none;
@@ -104,6 +104,11 @@
       margin-top: -4px;
     }
   }
+}
+
+.alert-wrap>.alert>.media {
+    margin: 0;
+    padding-right: 15px;
 }
 
 @media (min-width: 768px) {

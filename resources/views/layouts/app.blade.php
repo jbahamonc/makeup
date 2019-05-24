@@ -13,8 +13,8 @@
     <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/nifty.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/nifty-demo-icons.min.css') }}" rel="stylesheet">  
-    <link href="{{ asset('css/bootstrap-select.min.css') }}" rel="stylesheet">    
+    <link href="{{ asset('css/nifty-demo-icons.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/bootstrap-select.min.css') }}" rel="stylesheet">
 </head>
 <body class="pace-done">
     <div id="container" class="effect aside-float aside-bright mainnav-lg">
@@ -29,6 +29,13 @@
                     </a>
                 </div>
                 <div class="navbar-content">
+                  <ul class="nav navbar-top-links">
+                      <li id="dropdown-user" class="dropdown">
+                          <a class="text-right">
+                              <h1 class="page-header text-overflow" style="color:#FFF;">{{ $titulo }}</h1>
+                          </a>
+                      </li>
+                  </ul>
                     <ul class="nav navbar-top-links">
                         <li id="dropdown-user" class="dropdown">
                             <a href="#" class="text-right">
@@ -47,15 +54,15 @@
             </div>
             <nav id="mainnav-container">
                 <div id="mainnav">
-                    <div id="mainnav-menu-wrap">                               
-                        <ul id="mainnav-menu" class="list-group">	
+                    <div id="mainnav-menu-wrap">
+                        <ul id="mainnav-menu" class="list-group">
                             <li class="list-header">Menú Principal</li>
                             <li>
                                 <a href="/productos">
                                     <i class="demo-pli-home"></i>
                                     <span class="menu-title">Productos</span>
                                 </a>
-                            </li>				
+                            </li>
                             <li>
                                 <a href="/categorias">
                                     <i class="demo-pli-gear"></i>
@@ -79,8 +86,8 @@
                                         Pedidos
                                     </span>
                                 </a>
-                            </li>                             
-                        </ul>                       
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </nav>

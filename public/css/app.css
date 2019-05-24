@@ -69,16 +69,21 @@
   display: flex;
 }
 
-.flex .inline#color {
+.flex .inline.color {
   flex: 0 0 70%;
 }
 
-.flex .inline#codigo {
+.flex .inline.codigo {
   flex: 0 0 30%;
   padding: 0 !important;
   border: none;
   height: 38px;
   margin-top: -4px;
+}
+
+.alert-wrap > .alert > .media {
+  margin: 0;
+  padding-right: 15px;
 }
 
 @media (min-width: 768px) {

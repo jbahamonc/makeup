@@ -91,15 +91,45 @@
   !*** ./resources/js/app.js ***!
   \*****************************/
 /*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
-//require('./bootstrap');
-//window.Vue = require('vue');
+__webpack_require__(/*! ./scripts */ "./resources/js/scripts.js"); //window.Vue = require('vue');
+
+/***/ }),
+
+/***/ "./resources/js/scripts.js":
+/*!*********************************!*\
+  !*** ./resources/js/scripts.js ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(document).ready(function () {
+  $("#btn-save-products").on("click", function () {
+    var form = document.getElementById('form-products'); // Validar campo nombre
+
+    form.submit();
+    /*var formData = new FormData(form)
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        url        : form.getAttribute('action'),
+        type        : 'POST',
+        processData : false,
+        contentType : false,
+        data        : formData,
+        success     : function ( response ) {
+            console.log(response)
+        }
+    })*/
+  });
+});
 
 /***/ }),
 

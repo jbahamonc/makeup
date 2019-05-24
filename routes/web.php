@@ -20,12 +20,14 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/productos', 'ProductoController@index');
-Route::get('/productos/crear', 'ProductoController@create');
+Route::get('/productos/editar/{id}', 'ProductoController@edit');
 Route::get('/categorias', 'CategoriaController@index');
 Route::get('/promociones', 'PromocionController@index');
 Route::get('/promociones/crear', 'PromocionController@create');
 Route::get('/pedidos', 'PedidoController@index');
 Route::post('/uploads', 'ProductoController@uploadImg');
+Route::post('/productos/{id}', 'ProductoController@update')->name('updateProduct');
+Route::delete('/imagenes/{id}', 'ImagenController@destroy');
 
 // Rutas de la api
 Route::prefix('api/v1')->group(function () {
@@ -39,4 +41,3 @@ Route::prefix('api/v1')->group(function () {
     Route::get('subcategoria_productos/{id}', 'IndexController@productosSubcategoria');
     Route::get('favoritos', 'IndexController@mostrarFavoritos'); // pendiente agregar middleware auth
 });
-

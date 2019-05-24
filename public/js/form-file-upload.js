@@ -17,11 +17,6 @@ $(document).on('nifty.ready', function() {
     Dropzone.options.demoDropzone = { // The camelized version of the ID of the form element
         // The configuration we've talked about above
         autoProcessQueue: false,
-        //uploadMultiple: true,
-        //parallelUploads: 25,
-        //maxFiles: 25,
-
-        // The setting up of the dropzone
         init: function() {
         var myDropzone = this;
         //  Here's the change from enyo's tutorial...
@@ -32,13 +27,8 @@ $(document).on('nifty.ready', function() {
             //
         //}
         //    );
-
         }
-
     }
-
-
-
     // DROPZONE.JS WITH BOOTSTRAP'S THEME
     // =================================================================
     // Require Dropzone
@@ -48,10 +38,12 @@ $(document).on('nifty.ready', function() {
     var previewNode = document.querySelector("#dz-template");
     previewNode.id = "";
     var previewTemplate = previewNode.parentNode.innerHTML;
-    previewNode.parentNode.removeChild(previewNode);
-
+    //previewNode.parentNode.removeChild(previewNode);
+    var indexImg = 0
+    var btnsDelete
     var uplodaBtn = $('#dz-upload-btn');
     var removeBtn = $('#dz-remove-btn');
+    var codProducto = document.getElementById('codPro').value
     var myDropzone = new Dropzone(document.body, { // Make the whole body a dropzone
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -60,7 +52,7 @@ $(document).on('nifty.ready', function() {
         thumbnailWidth: 50,
         thumbnailHeight: 50,
         parallelUploads: 10,
-        uploadMultiple : true,
+        uploadMultiple : false,
         previewTemplate: previewTemplate,
         autoQueue: false, // Make sure the files aren't queued until manually added
         previewsContainer: "#dz-previews", // Define the container to display the previews
@@ -75,14 +67,14 @@ $(document).on('nifty.ready', function() {
     });
 
     myDropzone.on("uploadprogress", function(file, progress, bytesSent) {
-        //console.log(progress)
-        var thisElement = $(file.previewElement);
-
-		// Get the current file box progress bar, set its inner span's width accordingly.
-		thisElement.find('.progress-bar').width(progress + '%');
+          //console.log(progress)
+          var thisElement = $(file.previewElement)
+		      // Get the current file box progress bar, set its inner span's width accordingly.
+		      thisElement.find('.progress-bar').width(progress + '%');
     });
 
-    myDropzone.on("sending", function(file) {
+    myDropzone.on("sending", function(file, xhr, formData) {
+        formData.append('codigo', codProducto)
         var thisElement = $(file.previewElement);
         // Show the total progress bar when upload starts
         thisElement.find('.dz-total-progress')[0].style.opacity = "1"
@@ -90,21 +82,35 @@ $(document).on('nifty.ready', function() {
 
     // Hide the total progress bar when nothing's uploading anymore
     myDropzone.on("queuecomplete", function(progress) {
-        $("#dz-previews .dz-total-progress").css('opacity',0) 
+        $("#dz-previews .dz-total-progress").css('opacity',0)
     });
 
     myDropzone.on("removedfile", function(file) {
-        console.log(file)
+        var imgId = $(file.previewElement).find('button').attr('data-img-id')
+        // console.log(imgId)
+        if (imgId != undefined) {
+          $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url      : `/imagenes/${imgId}`,
+            type     : 'DELETE',
+            success  : function ( response ) {
+              // console.log(response)
+            }
+          })
+        }
     });
 
     myDropzone.on("success", function(file, response) {
-        console.log(file)
+      //console.log(response)
+      var button =   $(file.previewElement).find('button')
+      button.attr('data-img-id', response.id)
     });
-
 
     // Setup the buttons for all transfers
     uplodaBtn.on('click', function() {
-        //Upload all files
+        //Upload all file
         myDropzone.enqueueFiles(myDropzone.getFilesWithStatus(Dropzone.ADDED));
     });
 
@@ -113,5 +119,7 @@ $(document).on('nifty.ready', function() {
         uplodaBtn.prop('disabled', true);
         removeBtn.prop('disabled', true);
     });
+
+
 
 });

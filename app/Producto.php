@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Producto extends Model
 {
+
     public function imagenes()
     {
         return $this->hasMany('App\Imagen');
@@ -16,7 +17,7 @@ class Producto extends Model
         return $this->hasMany('App\Presentacion');
     }
 
-    public function categoria() 
+    public function categoria()
     {
         return $this->belongsTo('App\Categoria');
     }
@@ -26,12 +27,12 @@ class Producto extends Model
         return $this->belongsTo('App\Promocion');
     }
 
-    public function subcategoria() 
+    public function subcategoria()
     {
         return $this->belongsTo('App\Subcategoria');
     }
 
-    public function favoritos() 
+    public function favoritos()
     {
         return $this->belongsTo('App\User');
     }

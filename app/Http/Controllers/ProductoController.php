@@ -24,7 +24,7 @@ class ProductoController extends Controller
      */
     public function create()
     {
-        return view("register_product");
+
     }
 
     /**
@@ -35,7 +35,7 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $request->input();
     }
 
     /**
@@ -46,7 +46,7 @@ class ProductoController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
@@ -55,9 +55,25 @@ class ProductoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($codigo)
     {
-        //
+      $producto = null;
+      $accion = 'actualizar';
+      if ($codigo == '0') {
+          $codigo = 'euDYCJQMId';
+          $accion = 'nuevo';
+      }
+      $producto = \App\Producto::where('codigo' , $codigo)->first(); // validar si no existe el producto
+      $producto->imagenes;
+      $categorias = \App\Categoria::all();
+      $subcategorias = \App\Subcategoria::where('categoria_id', $producto->categoria_id)->get();
+      return view("register_product", [
+        'producto' => $producto,
+        'categorias' => $categorias,
+        'subcategorias' => $subcategorias,
+        'titulo' => 'Guardar informacion de  productos',
+        'accion' => $accion
+      ]);
     }
 
     /**
@@ -69,7 +85,31 @@ class ProductoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $producto = \App\Producto::find($id);
+        $producto->nombre = $request->input('nombre');
+        $producto->descripcion = $request->input('descripcion');
+        $producto->referencia = $request->input('referencia');
+        $producto->precio_normal = $request->input('precio');
+        $producto->cantidad = $request->input('stock');
+        $producto->categoria_id = $request->input('categoria');
+        $producto->subcategoria_id = $request->input('subcategoria');
+        $producto->save();
+
+        $accion =  $request->input('accion');
+        if ( $accion == 'nuevo') {
+          $newId =  $this->generateRandomString();
+          $producto->codigo = $newId;
+          $producto->save();
+
+          $newPro = new \App\Producto();
+          $newPro->codigo = 'euDYCJQMId';
+          $newPro->save();
+        }
+        return redirect('productos/editar/' . $newId)->with('status', 200);
+    }
+
+    private function generateRandomString($length = 10) {
+        return substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length);
     }
 
     /**
@@ -85,15 +125,19 @@ class ProductoController extends Controller
 
     public function uploadImg (Request $req) {
         $files = $req->file('file');
-        $arr = array();
-        foreach ($files as $img) {
-            $url = $img->store('tmp', 'public');
-            $arr[] = [
-                'message' => 'Image saved Successfully',
-                'imagen' => $url
-            ];
-        }
+        $cod = $req->input('codigo');
+        $url = $files->store('productos', 'public');
+        $imagen = new \App\Imagen();
+        $imagen->url = $url;
+        $imagen->producto_id = $cod;
+        $imagen->save();
 
+        $arr = [
+            'message' => 'Image saved Successfully',
+            'imagen' => $url,
+            'codigo' => $cod,
+            'id'     => $imagen->id
+        ];
         return response()->json($arr, 200);
     }
 }

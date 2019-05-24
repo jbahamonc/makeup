@@ -23,6 +23,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+      $productos = \App\Producto::all();
+      foreach ($productos as $pro) {
+         $pro->imagenes;
+         $pro->promocion;
+      }
+      return view('home', [
+         'titulo'    => 'Panel de Gestion de Productos',
+         'productos' => $productos
+      ]);
     }
 }

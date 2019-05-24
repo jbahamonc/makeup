@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-04-2019 a las 02:16:09
+-- Tiempo de generación: 21-05-2019 a las 02:20:21
 -- Versión del servidor: 10.1.31-MariaDB
 -- Versión de PHP: 7.1.16
 
@@ -42,15 +42,17 @@ CREATE TABLE `admin` (
 
 CREATE TABLE `categorias` (
   `id` int(11) NOT NULL,
-  `nombre` varchar(15) NOT NULL
+  `nombre` varchar(15) NOT NULL,
+  `imagen` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `categorias`
 --
 
-INSERT INTO `categorias` (`id`, `nombre`) VALUES
-(1, 'Rostro');
+INSERT INTO `categorias` (`id`, `nombre`, `imagen`) VALUES
+(1, 'sin categoria', ''),
+(2, 'Ojos', '');
 
 -- --------------------------------------------------------
 
@@ -79,7 +81,7 @@ CREATE TABLE `color` (
   `nombre` varchar(50) NOT NULL,
   `imagen` varchar(200) NOT NULL,
   `color` varchar(20) NOT NULL,
-  `producto_id` int(11) NOT NULL
+  `producto_id` varchar(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -90,7 +92,7 @@ CREATE TABLE `color` (
 
 CREATE TABLE `detalle_pedido` (
   `id_pedido` int(11) NOT NULL,
-  `id_producto` int(11) NOT NULL,
+  `id_producto` varchar(11) NOT NULL,
   `importe` int(11) NOT NULL,
   `cantidad` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -102,7 +104,7 @@ CREATE TABLE `detalle_pedido` (
 --
 
 CREATE TABLE `favoritos` (
-  `producto_id` int(11) NOT NULL,
+  `producto_id` varchar(11) NOT NULL,
   `cliente_id` int(11) NOT NULL,
   `estado` char(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -115,16 +117,10 @@ CREATE TABLE `favoritos` (
 
 CREATE TABLE `imagenes` (
   `id` int(11) NOT NULL,
-  `nombre` varchar(200) NOT NULL,
-  `producto_id` int(11) NOT NULL
+  `url` varchar(200) NOT NULL,
+  `original_name` varchar(100) NOT NULL,
+  `producto_id` varchar(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Volcado de datos para la tabla `imagenes`
---
-
-INSERT INTO `imagenes` (`id`, `nombre`, `producto_id`) VALUES
-(2, 'imagen.jpg', 3);
 
 -- --------------------------------------------------------
 
@@ -149,7 +145,7 @@ CREATE TABLE `pedidos` (
 
 CREATE TABLE `pedidos_facturados` (
   `id_pedido` int(11) NOT NULL,
-  `id_producto` int(11) NOT NULL,
+  `id_producto` varchar(11) NOT NULL,
   `id_factura` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -160,23 +156,24 @@ CREATE TABLE `pedidos_facturados` (
 --
 
 CREATE TABLE `productos` (
-  `id` int(11) NOT NULL,
-  `referencia` varchar(30) NOT NULL,
-  `nombre` varchar(100) NOT NULL,
-  `descripcion` text NOT NULL,
-  `precio_normal` int(11) NOT NULL,
-  `cantidad` int(11) NOT NULL,
+  `id` varchar(10) NOT NULL,
+  `referencia` varchar(50) DEFAULT NULL,
+  `nombre` text,
+  `descripcion` text,
+  `precio_normal` int(11) DEFAULT NULL,
+  `cantidad` int(11) DEFAULT NULL,
   `categoria_id` int(11) NOT NULL,
   `subcategoria_id` int(11) NOT NULL,
-  `promocion_id` int(11) NOT NULL
+  `promocion_id` int(11) NOT NULL,
+  `updated_at` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `productos`
 --
 
-INSERT INTO `productos` (`id`, `referencia`, `nombre`, `descripcion`, `precio_normal`, `cantidad`, `categoria_id`, `subcategoria_id`, `promocion_id`) VALUES
-(3, '123456', 'producto de prueba', 'descripcion del producto', 20000, 40, 1, 1, 1);
+INSERT INTO `productos` (`id`, `referencia`, `nombre`, `descripcion`, `precio_normal`, `cantidad`, `categoria_id`, `subcategoria_id`, `promocion_id`, `updated_at`) VALUES
+('euDYCJQMId', NULL, '', NULL, NULL, NULL, 1, 1, 1, '2019-05-20');
 
 -- --------------------------------------------------------
 
@@ -199,7 +196,7 @@ CREATE TABLE `promociones` (
 --
 
 INSERT INTO `promociones` (`id`, `nombre`, `imagen`, `fecha_inicio`, `fecha_fin`, `estado`, `descuento`) VALUES
-(1, 'promocion de fin de año', 'imagen.jpg', '09/04/2019', '15/04/2019', '1', 50);
+(1, 'sin promocion', 'imagen.jpg', '09/04/2019', '15/04/2019', '1', 50);
 
 -- --------------------------------------------------------
 
@@ -219,7 +216,8 @@ CREATE TABLE `subcategorias` (
 --
 
 INSERT INTO `subcategorias` (`id`, `nombre`, `imagen`, `categoria_id`) VALUES
-(1, 'Cejas', '', 1);
+(1, 'sin subcategoria', '', 1),
+(2, 'pestañas', '', 2);
 
 -- --------------------------------------------------------
 
@@ -229,10 +227,18 @@ INSERT INTO `subcategorias` (`id`, `nombre`, `imagen`, `categoria_id`) VALUES
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
-  `nombre` varchar(50) NOT NULL,
-  `apellido` varchar(50) NOT NULL,
-  `correo` varchar(50) NOT NULL
+  `name` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `password` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `email`, `password`) VALUES
+(1, 'jefferson', 'sandres9011@gmail.com', '$2y$10$fmpXAqY7RfI8v7.ggknijuZpm4DViHcM.bJUSVjtk4GvH.c7sQgSq'),
+(2, 'andres fonseca', 'jefer@gmail.com', '$2y$10$mJYiJZihmlkz19KVJrwuJegUwq4KT4dY1lIMp/6WbaUQhkv.gzSvq');
 
 -- --------------------------------------------------------
 
@@ -309,17 +315,17 @@ ALTER TABLE `pedidos`
 --
 ALTER TABLE `pedidos_facturados`
   ADD PRIMARY KEY (`id_pedido`,`id_producto`,`id_factura`),
-  ADD KEY `id_producto` (`id_producto`),
-  ADD KEY `id_factura` (`id_factura`);
+  ADD KEY `id_factura` (`id_factura`),
+  ADD KEY `id_producto` (`id_producto`);
 
 --
 -- Indices de la tabla `productos`
 --
 ALTER TABLE `productos`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_categoria` (`categoria_id`),
-  ADD KEY `promocion_id` (`promocion_id`),
-  ADD KEY `subcategoria_id` (`subcategoria_id`);
+  ADD KEY `categoria_id` (`categoria_id`),
+  ADD KEY `subcategoria_id` (`subcategoria_id`),
+  ADD KEY `promocion_id` (`promocion_id`);
 
 --
 -- Indices de la tabla `promociones`
@@ -355,7 +361,7 @@ ALTER TABLE `ventas`
 -- AUTO_INCREMENT de la tabla `categorias`
 --
 ALTER TABLE `categorias`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `clientes`
@@ -373,19 +379,13 @@ ALTER TABLE `color`
 -- AUTO_INCREMENT de la tabla `imagenes`
 --
 ALTER TABLE `imagenes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `productos`
---
-ALTER TABLE `productos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `promociones`
@@ -397,13 +397,13 @@ ALTER TABLE `promociones`
 -- AUTO_INCREMENT de la tabla `subcategorias`
 --
 ALTER TABLE `subcategorias`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `ventas`
@@ -458,16 +458,16 @@ ALTER TABLE `pedidos`
 --
 ALTER TABLE `pedidos_facturados`
   ADD CONSTRAINT `pedidos_facturados_ibfk_1` FOREIGN KEY (`id_pedido`) REFERENCES `detalle_pedido` (`id_pedido`),
-  ADD CONSTRAINT `pedidos_facturados_ibfk_2` FOREIGN KEY (`id_producto`) REFERENCES `detalle_pedido` (`id_producto`),
-  ADD CONSTRAINT `pedidos_facturados_ibfk_3` FOREIGN KEY (`id_factura`) REFERENCES `ventas` (`id`);
+  ADD CONSTRAINT `pedidos_facturados_ibfk_3` FOREIGN KEY (`id_factura`) REFERENCES `ventas` (`id`),
+  ADD CONSTRAINT `pedidos_facturados_ibfk_4` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id`);
 
 --
 -- Filtros para la tabla `productos`
 --
 ALTER TABLE `productos`
   ADD CONSTRAINT `productos_ibfk_1` FOREIGN KEY (`categoria_id`) REFERENCES `categorias` (`id`),
-  ADD CONSTRAINT `productos_ibfk_2` FOREIGN KEY (`promocion_id`) REFERENCES `promociones` (`id`),
-  ADD CONSTRAINT `productos_ibfk_3` FOREIGN KEY (`subcategoria_id`) REFERENCES `subcategorias` (`id`);
+  ADD CONSTRAINT `productos_ibfk_2` FOREIGN KEY (`subcategoria_id`) REFERENCES `subcategorias` (`id`),
+  ADD CONSTRAINT `productos_ibfk_3` FOREIGN KEY (`promocion_id`) REFERENCES `promociones` (`id`);
 
 --
 -- Filtros para la tabla `subcategorias`

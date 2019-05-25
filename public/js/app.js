@@ -114,20 +114,22 @@ $(document).ready(function () {
     var form = document.getElementById('form-products'); // Validar campo nombre
 
     form.submit();
-    /*var formData = new FormData(form)
+  });
+  $("body").on("click", ".btn-delete-img", function (e) {
+    e.preventDefault();
+    var btn = $(e.currentTarget);
+    var imgId = btn.attr('data-img-id');
     $.ajax({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        url        : form.getAttribute('action'),
-        type        : 'POST',
-        processData : false,
-        contentType : false,
-        data        : formData,
-        success     : function ( response ) {
-            console.log(response)
-        }
-    })*/
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      url: "/imagenes/".concat(imgId),
+      type: 'DELETE',
+      success: function success(response) {
+        console.log(response);
+        btn.parent().parent().parent().remove();
+      }
+    });
   });
 });
 

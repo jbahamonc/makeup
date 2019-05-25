@@ -14,7 +14,16 @@ class ProductoController extends Controller
      */
     public function index()
     {
-        return view('home');
+      $productos = \App\Producto::all();
+      foreach ($productos as $pro) {
+         $pro->imagenes;
+         $pro->promocion;
+      }
+      // return $productos;
+      return view('home', [
+         'titulo'    => 'Panel de Gestion de Productos',
+         'productos' => $productos
+      ]);
     }
 
     /**
@@ -105,7 +114,7 @@ class ProductoController extends Controller
           $newPro->codigo = 'euDYCJQMId';
           $newPro->save();
         }
-        return redirect('productos/editar/' . $newId)->with('status', 200);
+        return redirect('productos/editar/' . $producto->codigo)->with('status', 200);
     }
 
     private function generateRandomString($length = 10) {
@@ -120,7 +129,7 @@ class ProductoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
     }
 
     public function uploadImg (Request $req) {

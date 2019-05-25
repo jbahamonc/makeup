@@ -38,7 +38,7 @@ $(document).on('nifty.ready', function() {
     var previewNode = document.querySelector("#dz-template");
     previewNode.id = "";
     var previewTemplate = previewNode.parentNode.innerHTML;
-    //previewNode.parentNode.removeChild(previewNode);
+    previewNode.parentNode.removeChild(previewNode);
     var indexImg = 0
     var btnsDelete
     var uplodaBtn = $('#dz-upload-btn');

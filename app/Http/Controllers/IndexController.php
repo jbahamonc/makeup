@@ -16,8 +16,8 @@ class IndexController extends Controller
     {
         $productos = \App\Producto::all();
         foreach ($productos as $prod) {
-            $prod->imagenes;    
-            $prod->promocion;        
+            $prod->imagenes;
+            $prod->promocion;
         }
         return $productos;
     }
@@ -46,11 +46,10 @@ class IndexController extends Controller
     }
 
     public function productosCategoria($id) {
-        //$subcategorias = \App\Subcategoria::where('categoria_id', $id)->get();
         $productos = \App\Producto::where('categoria_id', $id)->get();
         foreach ($productos as $prod) {
             $prod->imagenes;
-            $prod->promocion;            
+            $prod->promocion;
         }
 
         return $productos;
@@ -65,7 +64,7 @@ class IndexController extends Controller
         $productos = \App\Producto::where('subcategoria_id', $id)->get();
         foreach ($productos as $prod) {
             $prod->imagenes;
-            $prod->promocion;            
+            $prod->promocion;
         }
 
         return $productos;
@@ -88,11 +87,8 @@ class IndexController extends Controller
     }
 
     function productoPromociones($id) {
-        $promo = \App\promocion::where('id', $id)->get();
-        foreach($promo as $p) {
-            $p->productos;
-        }
-
+        $promo = \App\promocion::where('id', $id)->first();
+         $promo->productos;
         return $promo;
     }
 }

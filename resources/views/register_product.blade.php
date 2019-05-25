@@ -38,33 +38,47 @@
                                 </button>
                             </div>
                         </div>
-                        <div id="dz-previews">
-                          @foreach ($producto->imagenes as $img)
-                            <div id="dz-template" class="pad-top bord-top">
-                                <div class="media">
-                                    <div class="media-body">
-                                        <div class="media-block">
-                                            <div class="media-left">
-                                                <img width="50" class="dz-img" data-dz-thumbnail src="{{ asset('storage/'.$img->url) }}">
-                                            </div>
-                                            <div class="media-body">
-                                                <p class="text-main text-bold mar-no text-overflow" data-dz-name></p>
-                                                <span class="dz-error text-danger text-sm" data-dz-errormessage></span>
-                                                <p class="text-sm" data-dz-size></p>
-                                                <div class="dz-total-progress" style="opacity:0">
-                                                    <div class="progress progress-xs active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-                                                        <div class="progress-bar progress-bar-success" style="width:0%;" data-dz-uploadprogress></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                        <div>
+                           <div class="row">
+                           @foreach ($producto->imagenes as $img)
+                              <div class="col-xs-6">
+                                 <div class="thumbnail">
+                                    <img alt="{{ $img->nombre }}" style="height: 100px; width: 100%; display: block;" src="{{ asset('storage/'.$img->url) }}" data-holder-rendered="true">
+                                    <div class="caption text-center">
+                                         <a href="#" class="btn btn-sm btn-default btn-circle btn-delete-img" data-img-id="{{ $img->id }}">
+                                             <i class="demo-pli-recycling" id="image-delete"></i>
+                                         </a>
                                     </div>
-                                    <div class="media-right">
-                                        <button data-dz-remove class="btn btn-xs btn-danger dz-cancel"><i class="demo-psi-trash"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                            @endforeach
+                                 </div>
+                              </div>
+                           @endforeach
+                           </div>
+                           <div id="dz-previews">
+                               <div id="dz-template" class="pad-top bord-top">
+                                   <div class="media">
+                                       <div class="media-body">
+                                           <div class="media-block">
+                                               <div class="media-left">
+                                                   <img class="dz-img" data-dz-thumbnail>
+                                               </div>
+                                               <div class="media-body">
+                                                   <p class="text-main text-bold mar-no text-overflow" data-dz-name></p>
+                                                   <span class="dz-error text-danger text-sm" data-dz-errormessage></span>
+                                                   <p class="text-sm" data-dz-size></p>
+                                                   <div class="dz-total-progress" style="opacity:0">
+                                                       <div class="progress progress-xs active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                                                           <div class="progress-bar progress-bar-success" style="width:0%;" data-dz-uploadprogress></div>
+                                                       </div>
+                                                   </div>
+                                               </div>
+                                           </div>
+                                       </div>
+                                       <div class="media-right">
+                                           <button data-dz-remove class="btn btn-xs btn-danger dz-cancel"><i class="demo-psi-trash"></i></button>
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
                         </div>
                     </div>
                 </div>

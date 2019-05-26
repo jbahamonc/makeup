@@ -44,7 +44,7 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-        return $request->input();
+
     }
 
     /**
@@ -94,6 +94,7 @@ class ProductoController extends Controller
      */
     public function update(Request $request, $id)
     {
+      dd($request->input());
         $producto = \App\Producto::find($id);
         $producto->nombre = $request->input('nombre');
         $producto->descripcion = $request->input('descripcion');
@@ -129,7 +130,7 @@ class ProductoController extends Controller
      */
     public function destroy($id)
     {
-        
+
     }
 
     public function uploadImg (Request $req) {

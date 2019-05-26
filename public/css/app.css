@@ -63,6 +63,11 @@
 
 .mail-attach-list .thumbnail .mail-file-img {
   position: relative;
+  background-color: #e9eef1 !important;
+}
+
+.mail-attach-list .thumbnail .mail-file-img img {
+  height: 120px !important;
 }
 
 .flex {

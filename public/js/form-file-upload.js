@@ -35,14 +35,16 @@ $(document).on('nifty.ready', function() {
     // http://www.dropzonejs.com/
     // =================================================================
     // Get the template HTML and remove it from the doumenthe template HTML and remove it from the doument
-    var previewNode = document.querySelector("#dz-template");
+    var previewNode = document.querySelector("#dz-template")
     previewNode.id = "";
     var previewTemplate = previewNode.parentNode.innerHTML;
     previewNode.parentNode.removeChild(previewNode);
     var indexImg = 0
     var btnsDelete
-    var uplodaBtn = $('#dz-upload-btn');
-    var removeBtn = $('#dz-remove-btn');
+    var uplodaBtn = $('#dz-upload-btn')
+    var removeBtn = $('#dz-remove-btn')
+    var divImgs = $("#list-img")
+    var previewImg = $("#dz-previews")
     var codProducto = document.getElementById('codPro').value
     var myDropzone = new Dropzone(document.body, { // Make the whole body a dropzone
         headers: {
@@ -83,6 +85,7 @@ $(document).on('nifty.ready', function() {
     // Hide the total progress bar when nothing's uploading anymore
     myDropzone.on("queuecomplete", function(progress) {
         $("#dz-previews .dz-total-progress").css('opacity',0)
+
     });
 
     myDropzone.on("removedfile", function(file) {
@@ -104,8 +107,20 @@ $(document).on('nifty.ready', function() {
 
     myDropzone.on("success", function(file, response) {
       //console.log(response)
+      var template = `<div class="col-xs-6">
+         <div class="thumbnail">
+            <img alt="" style="height: 100px; width: 100%; display: block;" src="/storage/${response.imagen }" data-holder-rendered="true">
+            <div class="caption text-center">
+                 <a href="#" class="btn btn-sm btn-default btn-circle btn-delete-img" data-img-id="${response.id }">
+                     <i class="demo-pli-recycling" id="image-delete"></i>
+                 </a>
+            </div>
+         </div>
+      </div>`
       var button =   $(file.previewElement).find('button')
       button.attr('data-img-id', response.id)
+      divImgs.append(template)
+      previewImg.html('')
     });
 
     // Setup the buttons for all transfers

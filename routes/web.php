@@ -37,8 +37,9 @@ Route::prefix('api/v1')->group(function () {
     Route::get('promociones/{id}', 'IndexController@productoPromociones'); // Productos por promociones
     Route::get('categorias', 'IndexController@categorias'); // Listado de categorias
     Route::get('productos/{id}', 'IndexController@detalleProducto'); // Detalle del producto
-    Route::get('categoria_producto/{id}', 'IndexController@productosCategoria'); // Prodduccctos de una categoria
+    Route::get('categoria_producto/{id}', 'IndexController@productosCategoria'); // Productos de una categoria
     Route::get('subcategorias', 'IndexController@subcategorias'); // Listado de subcategorias
     Route::get('subcategoria_productos/{id}', 'IndexController@productosSubcategoria'); // Producos por subcategorias
     Route::get('favoritos', 'IndexController@mostrarFavoritos'); // Listado de productos favoritos pendiente agregar middleware auth
+    Route::get('categorias/{id}', 'IndexController@subcategoriasPorCategoria'); // Listado de subcategorias por categoria
 });

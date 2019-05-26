@@ -88,7 +88,12 @@ class IndexController extends Controller
 
     function productoPromociones($id) {
         $promo = \App\promocion::where('id', $id)->first();
-         $promo->productos;
+        $promo->productos;
         return $promo;
+    }
+
+    function subcategoriasPorCategoria($id) {
+        $subcategorias = \App\Subcategoria::where('categoria_id', $id)->get();
+        return $subcategorias;
     }
 }

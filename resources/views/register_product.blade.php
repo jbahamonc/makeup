@@ -33,26 +33,9 @@
                                 <button id="dz-upload-btn" class="btn btn-primary" data-product-id="{{ $producto->id }}" type="submit" disabled="">
                                     <i class="fa fa-upload-cloud"></i> Subir
                                 </button>
-                                <button id="dz-remove-btn" class="btn btn-danger cancel" type="reset" disabled="">
-                                    <i class="demo-psi-trash"></i>
-                                </button>
                             </div>
                         </div>
                         <div>
-                           <div class="row">
-                           @foreach ($producto->imagenes as $img)
-                              <div class="col-xs-6">
-                                 <div class="thumbnail">
-                                    <img alt="{{ $img->nombre }}" style="height: 100px; width: 100%; display: block;" src="{{ asset('storage/'.$img->url) }}" data-holder-rendered="true">
-                                    <div class="caption text-center">
-                                         <a href="#" class="btn btn-sm btn-default btn-circle btn-delete-img" data-img-id="{{ $img->id }}">
-                                             <i class="demo-pli-recycling" id="image-delete"></i>
-                                         </a>
-                                    </div>
-                                 </div>
-                              </div>
-                           @endforeach
-                           </div>
                            <div id="dz-previews">
                                <div id="dz-template" class="pad-top bord-top">
                                    <div class="media">
@@ -79,6 +62,21 @@
                                    </div>
                                </div>
                            </div>
+                           <hr style="margin-top: 0px">
+                           <div class="row" id="list-img">
+                           @foreach ($producto->imagenes as $img)
+                              <div class="col-xs-6">
+                                 <div class="thumbnail">
+                                    <img alt="{{ $img->nombre }}" style="height: 100px; width: 100%; display: block;" src="{{ asset('storage/'.$img->url) }}" data-holder-rendered="true">
+                                    <div class="caption text-center">
+                                         <a href="#" class="btn btn-sm btn-default btn-circle btn-delete-img" data-img-id="{{ $img->id }}">
+                                             <i class="demo-pli-recycling" id="image-delete"></i>
+                                         </a>
+                                    </div>
+                                 </div>
+                              </div>
+                           @endforeach
+                           </div>
                         </div>
                     </div>
                 </div>
@@ -88,11 +86,13 @@
                   @csrf
                   <input type="hidden" name="accion" value="{{ $accion }}">
                   <input type="hidden" name="codigo" id="codPro" value="{{ $producto->id }}">
-                    <div class="form-group">
-                        <input type="text" placeholder="Titulo del Producto" name="nombre" class="form-control input-lg" value="{{ $producto->nombre }}">
-                    </div>
                     <div class="panel">
                         <div class="panel-body">
+                           <div class="form-group">
+                              <p class="text-main text-bold mar-no">Nombre del Producto</p>
+                              <p>Ingrese el nuevo nombre del producto.</p>
+                              <input type="text" placeholder="Titulo del Producto" name="nombre" class="form-control input-lg" value="{{ $producto->nombre }}">
+                            </div>
                             <div class="form-group">
                                 <p class="text-main text-bold mar-no">Descripción del Producto</p>
                                 <p>Ingrese una descripción breve del producto.</p>
@@ -152,41 +152,9 @@
                             <h3 class="panel-title text-bold">Opciones del Producto</h3>
                         </div>
                         <div class="panel-body">
-                            <ul class="mail-attach-list list-ov">
-                                <li>
-                                    <div class="thumbnail">
-                                        <div class="mail-file-img">
-                                            <img class="image-responsive" style="max-width: 100% !important" src="{{ asset('image/img-placeholder.jpg') }}" alt="image">
-                                        </div>
-                                        <div class="caption text-center">
-                                            <div class="flex">
-                                                <input id="" name="color[]" type="text" placeholder="Color" class="form-control inline input-sm color" style="margin-bottom: 5px;">
-                                                <input id="" name="codigo[]" type="color" placeholder="Codigo" class="form-control inline input-sm codigo">
-                                            </div>
-                                            <a href="#" class="btn btn-sm btn-default">
-                                                <i class="demo-pli-recycling icon-lg icon-fw" id="image-delete"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="thumbnail">
-                                        <div class="mail-file-img">
-                                            <img class="image-responsive" style="max-width: 100% !important" src="{{ asset('image/img-placeholder.jpg') }}" alt="image">
-                                        </div>
-                                        <div class="caption text-center">
-                                            <div class="flex">
-                                                <input id="" name="color[]" type="text" placeholder="Color" class="form-control inline input-sm color" style="margin-bottom: 5px;">
-                                                <input id="" name="codigo[]" type="color" placeholder="Codigo" class="form-control inline input-sm codigo">
-                                            </div>
-                                            <a href="#" class="btn btn-sm btn-default">
-                                                <i class="demo-pli-recycling icon-lg icon-fw" id="image-delete"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </li>
+                            <ul class="mail-attach-list list-ov" id="listColor">                                
                                 <li class="add-image">
-                                    <a href="#" class="thumbnail">
+                                    <a href="#" class="thumbnail"id="add-color" title="Agregar color">
                                         <div class="mail-file-icon">
                                             <i class="demo-pli-add" id="icon-add"></i>
                                         </div>
@@ -200,4 +168,31 @@
         </div>
     </div>
 </div>
+{{-- Modal de imagenes para productos --}}
+<div class="modal fade" id="default-modal" role="dialog" tabindex="-1" aria-labelledby="demo-default-modal" aria-hidden="true" style="display: none;">
+     <div class="modal-dialog">
+         <div class="modal-content">
+             <div class="modal-header">
+                 <button type="button" class="close" data-dismiss="modal"><i class="pci-cross pci-circle"></i></button>
+                 <h4 class="modal-title">Seleccion de imagen</h4>
+             </div>
+             <div class="modal-body">
+                <input type="hidden" value="">
+                 <div class="row" id="list-img">
+                    @if (count($producto->imagenes) > 0 )
+                       @foreach ($producto->imagenes as $img)
+                          <div class="col-xs-3  ">
+                             <a href="#" class="thumbnail colorImg">
+                                <img alt="{{ $img->nombre }}" style="height: 100px; width: 100%; display: block;" data-url="{{ $img->url }}" src="{{ asset('storage/'.$img->url) }}" data-holder-rendered="true">
+                             </a>
+                          </div>
+                       @endforeach
+                  @else
+                     <p class="text-center">No hay imagenes cargadas</p>
+                  @endif
+                 </div>
+             </div>
+         </div>
+     </div>
+ </div>
 @endsection

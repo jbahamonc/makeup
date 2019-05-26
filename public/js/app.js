@@ -110,6 +110,9 @@ __webpack_require__(/*! ./scripts */ "./resources/js/scripts.js"); //window.Vue 
 /***/ (function(module, exports) {
 
 $(document).ready(function () {
+  var currentImg;
+  var currentInputimg;
+  var ul = $("#listColor");
   $("#btn-save-products").on("click", function () {
     var form = document.getElementById('form-products'); // Validar campo nombre
 
@@ -126,10 +129,28 @@ $(document).ready(function () {
       url: "/imagenes/".concat(imgId),
       type: 'DELETE',
       success: function success(response) {
-        console.log(response);
+        //console.log(response)
         btn.parent().parent().parent().remove();
       }
     });
+  });
+  $('#default-modal').on('shown.bs.modal', function (e) {
+    var a = $(e.relatedTarget);
+    currentImg = a.find('img');
+    currentInputimg = a.find('input');
+  });
+  $('body').on('click', '.colorImg', function (e) {
+    e.preventDefault();
+    var th = $(e.currentTarget);
+    var src = th.find('img');
+    currentImg.attr('src', src.attr('src'));
+    currentInputimg.val(src.attr('data-url'));
+    $('#default-modal').modal('hide');
+  });
+  $("#add-color").on("click", function (e) {
+    e.preventDefault();
+    var li = "<li>\n          <div class=\"thumbnail\">\n              <div class=\"mail-file-img\">\n                   <a href=\"#\" data-target=\"#default-modal\" data-toggle=\"modal\">\n                      <input type=\"hidden\" name=\"imgColor[]\">\n                      <img src=\"/image/default.png\">\n                   </a>\n              </div>\n              <div class=\"caption text-center\">\n                  <div class=\"flex\">\n                      <input id=\"\" name=\"color[]\" type=\"text\" placeholder=\"Color\" class=\"form-control inline input-sm color\" style=\"margin-bottom: 5px;\">\n                      <input id=\"\" name=\"codigo[]\" type=\"color\" placeholder=\"Codigo\" class=\"form-control inline input-sm codigo\">\n                  </div>\n                  <a href=\"#\" class=\"btn btn-sm btn-default\">\n                      <i class=\"demo-pli-recycling icon-lg icon-fw\" id=\"image-delete\"></i>\n                  </a>\n              </div>\n          </div>\n      </li>";
+    ul.prepend(li);
   });
 });
 

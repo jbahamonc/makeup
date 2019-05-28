@@ -89,6 +89,9 @@ class IndexController extends Controller
     function productoPromociones($id) {
         $promo = \App\promocion::where('id', $id)->first();
         $promo->productos;
+        foreach ($promo->productos as $pro) {
+           $pro->imagenes;
+        }
         return $promo;
     }
 

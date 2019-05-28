@@ -125,7 +125,7 @@
                                       <p class="text-main text-bold mar-no">Categorias</p>
                                       <p>Seleccione la categoria del producto.</p>
                                       <div class="select">
-                                          <select data-placeholder="Categoria" name="categoria" id="demo-chosen-select" tabindex="-1">
+                                          <select data-placeholder="Categoria" name="categoria" id="chosen-select" tabindex="-1">
                                               @foreach ($categorias as $cat)
                                                 <option {{ ($producto->categoria_id == $cat->id)? "selected" : "" }}  value="{{ $cat->id }}">{{ $cat->nombre }}</option>
                                               @endforeach
@@ -137,7 +137,7 @@
                                     <p class="text-main text-bold mar-no">Subcategoria</p>
                                     <p>Seleccione la subcategoria del producto.</p>
                                     <div class="select">
-                                        <select data-placeholder="Subcategoria" name="subcategoria" id="demo-chosen-select" tabindex="-1">
+                                        <select data-placeholder="Subcategoria" name="subcategoria" id="chosen-select2" tabindex="-1">
                                           @foreach ($subcategorias as $sub)
                                             <option {{ ($producto->subcategoria_id == $sub->id)? "selected" : "" }}  value="{{ $sub->id }}">{{ $sub->nombre }}</option>
                                           @endforeach
@@ -152,7 +152,30 @@
                             <h3 class="panel-title text-bold">Opciones del Producto</h3>
                         </div>
                         <div class="panel-body">
-                            <ul class="mail-attach-list list-ov" id="listColor">                                
+                            <ul class="mail-attach-list list-ov" id="listColor">
+                               @foreach ($producto->colores as $color)
+                                  <li>
+                                      <div class="thumbnail">
+                                          <div class="mail-file-img">
+                                               <a href="#" data-target="#default-modal" data-toggle="modal">
+                                                  <input type="hidden" name="imgColor[]" value="{{ $color->imagen }}">
+                                                  <img src="{{ asset('storage/' . $color->imagen) }}">
+                                               </a>
+                                          </div>
+                                          <div class="caption text-center">
+                                              <div class="flex">
+                                                  <input id="" name="color[]" type="text" placeholder="Color" class="form-control inline input-sm color" value="{{ $color->nombre }}" style="margin-bottom: 5px;">
+                                                  <input id="" name="codigo[]" type="color" placeholder="Codigo" class="form-control inline input-sm codigo" value="{{ $color->color }}">
+                                                  <input type="hidden" name="ope[]" value="update">
+                                                  <input type="hidden" name="idColor[]" value="{{ $color->id }}">
+                                              </div>
+                                              <a href="#" class="btn btn-sm btn-default delete-color" data-color-id="{{ $color->id }}">
+                                                  <i class="demo-pli-recycling icon-lg icon-fw" id="image-delete"></i>
+                                              </a>
+                                          </div>
+                                      </div>
+                                  </li>
+                               @endforeach
                                 <li class="add-image">
                                     <a href="#" class="thumbnail"id="add-color" title="Agregar color">
                                         <div class="mail-file-icon">
@@ -178,7 +201,7 @@
              </div>
              <div class="modal-body">
                 <input type="hidden" value="">
-                 <div class="row" id="list-img">
+                 <div class="row" id="img-colors">
                     @if (count($producto->imagenes) > 0 )
                        @foreach ($producto->imagenes as $img)
                           <div class="col-xs-3  ">

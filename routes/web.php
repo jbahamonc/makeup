@@ -29,6 +29,8 @@ Route::post('/uploads', 'ProductoController@uploadImg');
 Route::post('/productos/{id}', 'ProductoController@update')->name('updateProduct');
 Route::delete('/productos/{id}', 'ProductoController@destroy');
 Route::delete('/imagenes/{id}', 'ImagenController@destroy');
+Route::delete('/colores/{id}', 'PresentacionController@destroy');
+Route::get('/subcategorias/{id}', 'SubcategoriaController@listarSub');
 
 // Rutas de la api
 Route::prefix('api/v1')->group(function () {

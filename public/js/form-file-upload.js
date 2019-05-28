@@ -45,6 +45,7 @@ $(document).on('nifty.ready', function() {
     var removeBtn = $('#dz-remove-btn')
     var divImgs = $("#list-img")
     var previewImg = $("#dz-previews")
+    var modalRow = $("#img-colors")
     var codProducto = document.getElementById('codPro').value
     var myDropzone = new Dropzone(document.body, { // Make the whole body a dropzone
         headers: {
@@ -121,6 +122,7 @@ $(document).on('nifty.ready', function() {
       button.attr('data-img-id', response.id)
       divImgs.append(template)
       previewImg.html('')
+      cargarImagen(response)
     });
 
     // Setup the buttons for all transfers
@@ -135,6 +137,14 @@ $(document).on('nifty.ready', function() {
         removeBtn.prop('disabled', true);
     });
 
+    function cargarImagen(img) {
+      var html = `<div class="col-xs-3  ">
+            <a href="#" class="thumbnail colorImg">
+               <img alt="${img.nombre}" style="height: 100px; width: 100%; display: block;" data-url="${img.imagen}" src="/storage/${img.imagen}" data-holder-rendered="true">
+            </a>
+         </div>`
+      modalRow.append(html)
+   }
 
 
 });

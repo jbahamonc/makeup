@@ -149,8 +149,68 @@ $(document).ready(function () {
   });
   $("#add-color").on("click", function (e) {
     e.preventDefault();
-    var li = "<li>\n          <div class=\"thumbnail\">\n              <div class=\"mail-file-img\">\n                   <a href=\"#\" data-target=\"#default-modal\" data-toggle=\"modal\">\n                      <input type=\"hidden\" name=\"imgColor[]\">\n                      <img src=\"/image/default.png\">\n                   </a>\n              </div>\n              <div class=\"caption text-center\">\n                  <div class=\"flex\">\n                      <input id=\"\" name=\"color[]\" type=\"text\" placeholder=\"Color\" class=\"form-control inline input-sm color\" style=\"margin-bottom: 5px;\">\n                      <input id=\"\" name=\"codigo[]\" type=\"color\" placeholder=\"Codigo\" class=\"form-control inline input-sm codigo\">\n                  </div>\n                  <a href=\"#\" class=\"btn btn-sm btn-default\">\n                      <i class=\"demo-pli-recycling icon-lg icon-fw\" id=\"image-delete\"></i>\n                  </a>\n              </div>\n          </div>\n      </li>";
+    var li = "<li>\n          <div class=\"thumbnail\">\n              <div class=\"mail-file-img\">\n                   <a href=\"#\" data-target=\"#default-modal\" data-toggle=\"modal\">\n                      <input type=\"hidden\" name=\"imgColor[]\" value=\"productos/default.png\">\n                      <img src=\"/storage/productos/default.png\">\n                   </a>\n              </div>\n              <div class=\"caption text-center\">\n                  <div class=\"flex\">\n                      <input id=\"\" name=\"color[]\" type=\"text\" placeholder=\"Color\" class=\"form-control inline input-sm color\" style=\"margin-bottom: 5px;\">\n                      <input id=\"\" name=\"codigo[]\" type=\"color\" placeholder=\"Codigo\" class=\"form-control inline input-sm codigo\">\n                      <input type=\"hidden\" name=\"ope[]\" value=\"insert\">\n                      <input type=\"hidden\" name=\"idColor[]\" value=\"0\">\n                  </div>\n                  <a href=\"#\" class=\"btn btn-sm btn-default delete-color\" data-color-id=\"0\">\n                      <i class=\"demo-pli-recycling icon-lg icon-fw\" id=\"image-delete\"></i>\n                  </a>\n              </div>\n          </div>\n      </li>";
     ul.prepend(li);
+  });
+  $('body').on('click', '.delete-color', function (e) {
+    e.preventDefault();
+    var a = $(e.currentTarget);
+    var id = a.attr('data-color-id');
+
+    if (id != 0) {
+      $.ajax({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        url: "/colores/".concat(id),
+        type: 'DELETE',
+        success: function success(response) {
+          console.log(response);
+        }
+      });
+    }
+
+    a.parent().parent().parent().remove();
+  });
+  $("#chosen-select").on('change', function () {
+    var select = $(this);
+    var select2 = $('#chosen-select2');
+    $.ajax({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      url: "/subcategorias/".concat(select.val()),
+      type: 'GET',
+      success: function success(response) {
+        console.log(response);
+        var html = "";
+        var _iteratorNormalCompletion = true;
+        var _didIteratorError = false;
+        var _iteratorError = undefined;
+
+        try {
+          for (var _iterator = response[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+            sub = _step.value;
+            html += "<option value=\"".concat(sub.id, "\">").concat(sub.nombre, "</option>");
+          }
+        } catch (err) {
+          _didIteratorError = true;
+          _iteratorError = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion && _iterator.return != null) {
+              _iterator.return();
+            }
+          } finally {
+            if (_didIteratorError) {
+              throw _iteratorError;
+            }
+          }
+        }
+
+        select2.html(html);
+      }
+    });
   });
 });
 

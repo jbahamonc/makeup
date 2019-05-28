@@ -74,6 +74,7 @@ class ProductoController extends Controller
       }
       $producto = \App\Producto::where('codigo' , $codigo)->first(); // validar si no existe el producto
       $producto->imagenes;
+      $producto->colores;
       $categorias = \App\Categoria::all();
       $subcategorias = \App\Subcategoria::where('categoria_id', $producto->categoria_id)->get();
       return view("register_product", [
@@ -94,7 +95,7 @@ class ProductoController extends Controller
      */
     public function update(Request $request, $id)
     {
-      dd($request->input());
+      //dd($request->input());
         $producto = \App\Producto::find($id);
         $producto->nombre = $request->input('nombre');
         $producto->descripcion = $request->input('descripcion');
@@ -105,8 +106,26 @@ class ProductoController extends Controller
         $producto->subcategoria_id = $request->input('subcategoria');
         $producto->save();
 
+        $nameColorArr = $request->input('color');
+        $imgArr = $request->input('imgColor');
+        $colorArr = $request->input('codigo');
+        $opeArr = $request->input('ope');
+        $idColorArr = $request->input('idColor');
+        for ($i = 0; $i < sizeof($colorArr); $i++) {
+           if ($opeArr[$i] == 'insert') {
+             $col = new \App\Presentacion();
+           } else {
+             $col = \App\Presentacion::find($idColorArr[$i]);
+           }
+           $col->nombre =  $nameColorArr[$i];
+           $col->imagen = $imgArr[$i];
+           $col->color = $colorArr[$i];
+           $col->producto_id = $id;
+           $col->save();
+        }
+
         $accion =  $request->input('accion');
-        if ( $accion == 'nuevo') {
+        if ( $accion == 'nuevo' ) {
           $newId =  $this->generateRandomString();
           $producto->codigo = $newId;
           $producto->save();
@@ -115,6 +134,7 @@ class ProductoController extends Controller
           $newPro->codigo = 'euDYCJQMId';
           $newPro->save();
         }
+
         return redirect('productos/editar/' . $producto->codigo)->with('status', 200);
     }
 

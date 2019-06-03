@@ -68,7 +68,10 @@ class PresentacionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $pre = \App\Presentacion::find($id);
+        $pre->imagen = 'productos/default.png';
+        $pre->save();
+        return 'Imagen de presentacion actualizada';
     }
 
     /**

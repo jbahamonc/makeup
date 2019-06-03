@@ -131,9 +131,41 @@ $(document).ready(function () {
       success: function success(response) {
         //console.log(response)
         btn.parent().parent().parent().remove();
+        deleteImgModal(response);
+        updateImgColor(response);
       }
     });
-  });
+  }); // se borra la imagen del modal
+
+  function deleteImgModal(img) {
+    image = $("#modal-imagen-".concat(img.id)); //console.log(image)
+
+    image.remove();
+  } // si existe la imgen que se borro se valida que exista en las opciones del productos
+  // de ser asi, se actualiza la imagen a la imagen por defecto
+
+
+  function updateImgColor(img) {
+    inputImgColor = ul.find('.mail-file-img input');
+    inputImgColor.each(function () {
+      var imgColor = $(this);
+
+      if (imgColor.val() == img.url) {
+        imgColor.next().attr('src', '/storage/productos/default.png');
+        $.ajax({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          url: "/colores/".concat(imgColor.prev().val()),
+          type: 'POST',
+          success: function success(response) {
+            console.log(response);
+          }
+        });
+      }
+    });
+  }
+
   $('#default-modal').on('shown.bs.modal', function (e) {
     var a = $(e.relatedTarget);
     currentImg = a.find('img');

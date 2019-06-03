@@ -25,11 +25,13 @@ Route::get('/categorias', 'CategoriaController@index');
 Route::get('/promociones', 'PromocionController@index');
 Route::get('/promociones/crear', 'PromocionController@create');
 Route::get('/pedidos', 'PedidoController@index');
+Route::get('/pedidos/{id}', 'PedidoController@edit');
 Route::post('/uploads', 'ProductoController@uploadImg');
 Route::post('/productos/{id}', 'ProductoController@update')->name('updateProduct');
 Route::delete('/productos/{id}', 'ProductoController@destroy');
 Route::delete('/imagenes/{id}', 'ImagenController@destroy');
 Route::delete('/colores/{id}', 'PresentacionController@destroy');
+Route::post('/colores/{id}', 'PresentacionController@update');
 Route::get('/subcategorias/{id}', 'SubcategoriaController@listarSub');
 
 // Rutas de la api

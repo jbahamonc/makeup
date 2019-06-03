@@ -100,7 +100,7 @@ $(document).on('nifty.ready', function() {
             url      : `/imagenes/${imgId}`,
             type     : 'DELETE',
             success  : function ( response ) {
-              // console.log(response)
+               console.log(response)
             }
           })
         }
@@ -127,18 +127,17 @@ $(document).on('nifty.ready', function() {
 
     // Setup the buttons for all transfers
     uplodaBtn.on('click', function() {
-        //Upload all file
         myDropzone.enqueueFiles(myDropzone.getFilesWithStatus(Dropzone.ADDED));
     });
 
-    removeBtn.on('click', function() {
-        myDropzone.removeAllFiles(true);
-        uplodaBtn.prop('disabled', true);
-        removeBtn.prop('disabled', true);
-    });
+    // removeBtn.on('click', function() {
+    //     myDropzone.removeAllFiles(true);
+    //     uplodaBtn.prop('disabled', true);
+    //     removeBtn.prop('disabled', true);
+    // });
 
     function cargarImagen(img) {
-      var html = `<div class="col-xs-3  ">
+      var html = `<div class="col-xs-3" id="modal-imagen-${img.id}">
             <a href="#" class="thumbnail colorImg">
                <img alt="${img.nombre}" style="height: 100px; width: 100%; display: block;" data-url="${img.imagen}" src="/storage/${img.imagen}" data-holder-rendered="true">
             </a>

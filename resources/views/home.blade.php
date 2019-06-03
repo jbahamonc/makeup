@@ -1,16 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
-    <div id="page-head">
+    {{-- <div id="page-head">
         <div id="page-title">
             <h1 class="page-header text-overflow">Panel de Gestión de Productos</h1>
         </div>
-    </div>
+    </div> --}}
     <div id="page-content">
         <div class="row pad-btm">
             <div class="col-sm-6 toolbar-right"></div>
             <div class="col-sm-6 toolbar-right text-right">
-                <a href="/productos/editar/0" id="demo-btn-addrow" class="btn btn-primary">Nuevo Producto</a>
+                <a href="/productos/editar/0" id="demo-btn-addrow" class="btn btn-success btn-lg">Nuevo Producto</a>
             </div>
         </div>
         <div class="row">

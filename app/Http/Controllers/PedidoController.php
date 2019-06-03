@@ -13,7 +13,9 @@ class PedidoController extends Controller
      */
     public function index()
     {
-        return view('pedidos');
+        return view('pedidos', [
+           'titulo' => 'Ordenes de Pedido'
+        ]);
     }
 
     /**
@@ -56,7 +58,9 @@ class PedidoController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('detalle_pedido', [
+           'titulo' => 'Detalle del Pedido # ' . $id
+        ]);
     }
 
     /**

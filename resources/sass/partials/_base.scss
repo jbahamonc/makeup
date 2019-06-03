@@ -116,6 +116,19 @@
     padding-right: 15px;
 }
 
+.form-inline.form-search {
+   display: flex;
+   justify-content: space-between;
+
+   .form-group {
+      flex: 0 0 33.3333%;
+
+      input {
+         width: 100%;
+      }
+   }
+}
+
 @media (min-width: 768px) {
   .navbar-header:before {
     background-color: #fff !important;

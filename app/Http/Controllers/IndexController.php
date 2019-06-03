@@ -91,6 +91,7 @@ class IndexController extends Controller
         $promo->productos;
         foreach ($promo->productos as $pro) {
            $pro->imagenes;
+           $pro->promocion;
         }
         return $promo;
     }

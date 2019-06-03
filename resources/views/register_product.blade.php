@@ -13,8 +13,8 @@
       </div>
     @endif
     <div class="row pad-btm">
-        <div class="col-sm-12 toolbar-right text-right">
-            <button id="btn-save-products" class="btn btn-success btn-lg">Guardar Producto</button>
+        <div class="pad-btm text-right">
+            <button id="btn-save-products" class="btn btn-success btn-lg" style="width:300px">Guardar Producto</button>
         </div>
         <div class="clearfix"></div>
         <div class="fixed-fluid">
@@ -99,21 +99,21 @@
                                 <textarea placeholder="Descripción" name="descripcion" rows="8" class="form-control">{{ $producto->descripcion }}</textarea>
                             </div>
                             <div class="row">
-                                <div class="col-sm-6">
+                                <div class="col-sm-4">
                                     <div class="form-group">
                                         <p class="text-main text-bold mar-no">Referencia</p>
                                         <p>Este código se usa para identificar al producto.</p>
                                         <input type="number" name="referencia" placeholder="Referencia" class="form-control" value="{{ $producto->referencia }}">
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
+                                <div class="col-sm-4">
                                     <div class="form-group">
                                         <p class="text-main text-bold mar-no">Precio</p>
                                         <p>Ingrese el precio normal del producto  en el mercado.</p>
                                         <input type="number" name="precio" placeholder="Precio regular" class="form-control" value="{{ $producto->precio_normal }}">
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
+                                <div class="col-sm-4">
                                     <div class="form-group">
                                       <p class="text-main text-bold mar-no">En Almacén</p>
                                       <p>Ingrese la cantidad que hay en stock del producto.</p>
@@ -158,6 +158,7 @@
                                       <div class="thumbnail">
                                           <div class="mail-file-img">
                                                <a href="#" data-target="#default-modal" data-toggle="modal">
+                                                  <input type="hidden" value="{{ $color->id }}">
                                                   <input type="hidden" name="imgColor[]" value="{{ $color->imagen }}">
                                                   <img src="{{ asset('storage/' . $color->imagen) }}">
                                                </a>
@@ -204,7 +205,7 @@
                  <div class="row" id="img-colors">
                     @if (count($producto->imagenes) > 0 )
                        @foreach ($producto->imagenes as $img)
-                          <div class="col-xs-3  ">
+                          <div class="col-xs-3" id="modal-imagen-{{ $img->id }}">
                              <a href="#" class="thumbnail colorImg">
                                 <img alt="{{ $img->nombre }}" style="height: 100px; width: 100%; display: block;" data-url="{{ $img->url }}" src="{{ asset('storage/'.$img->url) }}" data-holder-rendered="true">
                              </a>

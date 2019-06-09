@@ -108,7 +108,7 @@ class ProductoController extends Controller
 
         $nameColorArr = $request->input('color');
         $imgArr = $request->input('imgColor');
-        $colorArr = $request->input('codigo');
+        $colorArr = $request->input('codigoColor');
         $opeArr = $request->input('ope');
         $idColorArr = $request->input('idColor');
         for ($i = 0; $i < sizeof($colorArr); $i++) {

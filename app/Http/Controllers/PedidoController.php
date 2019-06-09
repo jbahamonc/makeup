@@ -13,8 +13,16 @@ class PedidoController extends Controller
      */
     public function index()
     {
+        $pedidos = \App\Pedido::all();
+        foreach ($pedidos as $ped) {
+           $ped->cliente;
+           $ped->estadoPago;
+           $ped->estadoEnvio;
+        }
+        // return $pedidos;
         return view('pedidos', [
-           'titulo' => 'Ordenes de Pedido'
+           'titulo' => 'Ordenes de Pedido',
+           'pedidos' => $pedidos
         ]);
     }
 
@@ -58,8 +66,14 @@ class PedidoController extends Controller
      */
     public function edit($id)
     {
+        $pedido = \App\Pedido::where('num_orden', $id)->first();
+        $pedido->cliente;
+        $pedido->estadoPago;
+        $pedido->estadoEnvio;
+        $pedido->productos;
         return view('detalle_pedido', [
-           'titulo' => 'Detalle del Pedido # ' . $id
+           'titulo' => 'Detalle del Pedido # ' . $id,
+           'peddo'  => $pedido
         ]);
     }
 

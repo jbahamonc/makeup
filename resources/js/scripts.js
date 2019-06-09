@@ -86,7 +86,7 @@ $(document).ready(function () {
               <div class="caption text-center">
                   <div class="flex">
                       <input id="" name="color[]" type="text" placeholder="Color" class="form-control inline input-sm color" style="margin-bottom: 5px;">
-                      <input id="" name="codigo[]" type="color" placeholder="Codigo" class="form-control inline input-sm codigo">
+                      <input id="" name="codigoColor[]" type="color" placeholder="Codigo" class="form-control inline input-sm codigo">
                       <input type="hidden" name="ope[]" value="insert">
                       <input type="hidden" name="idColor[]" value="0">
                   </div>

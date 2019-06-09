@@ -166,7 +166,7 @@
                                           <div class="caption text-center">
                                               <div class="flex">
                                                   <input id="" name="color[]" type="text" placeholder="Color" class="form-control inline input-sm color" value="{{ $color->nombre }}" style="margin-bottom: 5px;">
-                                                  <input id="" name="codigo[]" type="color" placeholder="Codigo" class="form-control inline input-sm codigo" value="{{ $color->color }}">
+                                                  <input id="" name="codigoColor[]" type="color" placeholder="Codigo" class="form-control inline input-sm codigo" value="{{ $color->color }}">
                                                   <input type="hidden" name="ope[]" value="update">
                                                   <input type="hidden" name="idColor[]" value="{{ $color->id }}">
                                               </div>

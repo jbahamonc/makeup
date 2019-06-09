@@ -36,4 +36,9 @@ class Producto extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    public function pedidos()
+    {
+        return $this->belongsTo('App\Pedido', 'detalle_pedido');
+    }
 }

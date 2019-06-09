@@ -13,11 +13,11 @@
     <!-- Styles -->
     <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/nifty.min.css') }}" rel="stylesheet">  
+    <link href="{{ asset('css/nifty.min.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="container">
-        <div id="bg-overlay" class="bg-img" style="background-image: url(https://cdn.hipwallpaper.com/i/85/53/4onKUg.jpg);"></div>        
+        <div id="bg-overlay" class="bg-img" style="background-image: url(/image/bg-login.jpg);"></div>        
         <div class="cls-content text-center">
 		    <div class="cls-content-sm panel" style="box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23) !important;">
 		        <div class="panel-body">
@@ -28,22 +28,22 @@
 		            <form method="POST" action="{{ route('login') }}">
                         @csrf
 		                <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-		                    <input type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus placeholder="Username">                            
+		                    <input type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus placeholder="Username">
                             @if ($errors->has('email'))
                                 <small class="help-block control-label">{{ $errors->first('email') }}</small>
                             @endif
 		                </div>
 		                <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-		                    <input type="password" class="form-control" name="password" value="{{ old('password') }}" required autofocus placeholder="Password">                            
+		                    <input type="password" class="form-control" name="password" value="{{ old('password') }}" required autofocus placeholder="Password">
                             @if ($errors->has('password'))
                                 <small class="help-block control-label">{{ $errors->first('password') }}</small>
                             @endif
 		                </div>
 		                <button class="btn btn-primary btn-lg btn-block" type="submit">Iniciar Sesión</button>
 		            </form>
-		        </div>		
+		        </div>
 		        <div class="pad-all">
-		            <a href="{{ route('register') }}" class="btn-link mar-lft text-muted">Crear nueva cuenta</a>	            
+		            <a href="{{ route('register') }}" class="btn-link mar-lft text-muted">Crear nueva cuenta</a>
 		        </div>
 		    </div>
 		</div>
@@ -54,6 +54,3 @@
     <script src="{{ asset('js/nifty.min.js') }}"></script>
 </body>
 </html>
-
-
-

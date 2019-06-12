@@ -67,14 +67,18 @@ class PedidoController extends Controller
     public function edit($id)
     {
         $pedido = \App\Pedido::where('num_orden', $id)->first();
-        $pedido->cliente;
+        $pedido->cliente->datos_envio;
         $pedido->estadoPago;
         $pedido->estadoEnvio;
-        $pedido->productos;
+        foreach($pedido->productos as $pro) {
+           $pro->imagenes;
+        }
+        // return $pedido;
         return view('detalle_pedido', [
            'titulo' => 'Detalle del Pedido # ' . $id,
-           'peddo'  => $pedido
+           'pedido'  => $pedido
         ]);
+
     }
 
     /**
@@ -98,5 +102,36 @@ class PedidoController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function changeEstate ($orden, $estado)
+    {
+         $pedido = \App\Pedido::find($orden);
+         $pedido->estado_pago_id = $estado;
+         $pedido->save();
+
+         $estado = \App\Pago::find($estado);
+         return $estado;
+    }
+
+    public function searchOrder($tipo, $id)
+    {
+         $pedidos = null;
+         if ($tipo == "orden") {
+            $pedidos = \App\Pedido::where('num_orden', $id)->get();
+         }
+         else if ($tipo == "pago") {
+            $pedidos = \App\Pedido::where('estado_pago_id', $id)->get();
+         }
+         else if ($tipo == "envio") {
+            $pedidos = \App\Pedido::where('estado_envio_id', $id)->get();
+         }
+
+         foreach ($pedidos as $p) {
+            $p->cliente;
+            $p->estadoPago;
+            $p->estadoEnvio;
+         }
+         return $pedidos;
     }
 }

@@ -10,4 +10,9 @@ class Cliente extends Model
     {
         return $this->belongsToMany('App\Producto', 'App\Producto_cliente');
     }
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
 }

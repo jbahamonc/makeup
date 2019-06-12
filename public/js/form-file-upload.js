@@ -122,6 +122,7 @@ $(document).on('nifty.ready', function() {
       button.attr('data-img-id', response.id)
       divImgs.append(template)
       previewImg.html('')
+      modalRow.find('p').remove()
       cargarImagen(response)
     });
 

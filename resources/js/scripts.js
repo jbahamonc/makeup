@@ -32,7 +32,6 @@ $(document).ready(function () {
    // se borra la imagen del modal
    function deleteImgModal(img) {
       image = $(`#modal-imagen-${img.id}`)
-      //console.log(image)
       image.remove()
    }
 
@@ -137,4 +136,87 @@ $(document).ready(function () {
          }
       })
    })
+
+   // Cambiar el esado del pedido
+   $("#changeEstate li a").on("click", function (e) {
+      e.preventDefault()
+      var estadoNew = 0
+      if ($(this).text() == "Pagado") {
+         estadoNew = 2
+      }
+      if ($(this).text() == "Cancelado") {
+         estadoNew = 3
+      }
+      var orden = $("#numOrden").attr('data-orden')
+      $.ajax({
+         headers: {
+             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+         },
+         url      : `/estado-pedido/${orden}/${estadoNew}`,
+         type     : 'POST',
+         success  : function ( response ) {
+            var panel = $("#panelEstado")
+            panel.removeClass().addClass(`panel media pad-all ${response.clase_css}`)
+            panel.find('i').removeClass().addClass(`icon-3x ${response.icono}`)
+            panel.find('#nombreEstado').text(response.estado)
+         }
+      })
+   })
+
+   // Buscar orden por numero de pedido
+   $("#buscarOrdenPedido").on("keyup",function (e) {
+      e.preventDefault()
+      var code = (e.keyCode ? e.keyCode : e.which)
+      if (code == 13) {
+         var orden = $(this).val()
+         buscarOrden('orden', tipoPago)
+      }
+   })
+
+   // Buscar orden por estado de pago
+   $("#buscarEstadoPago").on("change", function () {
+      var tipoPago = $("#buscarEstadoPago :selected").val()
+      buscarOrden('pago', tipoPago)
+   })
+
+   // Buscar orden por estado de envio
+   $("#buscarEstadoEnvio").on("change", function () {
+      var tipoPago = $("#buscarEstadoEnvio :selected").val()
+      buscarOrden('envio', tipoPago)
+   })
+
+   // Se hace la peticion para traer los pedido dependiendo del tipo
+   function buscarOrden(tipo, id) {
+      var tbody = $("#listaPedido")
+      $.ajax({
+         headers: {
+             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+         },
+         url      : `/buscar-orden/${tipo}/${id}`,
+         type     : 'GET',
+         success  : function ( response ) {
+            console.log(response)
+            var html = ""
+            if (response.length > 0) {
+               for (pedido of response) {
+                  html += `<tr>
+                                 <td><a class="text-info" href="/pedidos/${pedido.num_orden}">${pedido.num_orden}</a></td>
+                                 <td>${pedido.fecha_pedido}</td>
+                                 <td>${pedido.cliente.name}</td>
+                                 <td class="text-center">
+                                     <span class="label label-table ${pedido.estado_pago.clase_css}">${pedido.estado_pago.estado}</span>
+                                 </td>
+                                 <td class="text-center">
+                                     <span class="label label-table label-default">${pedido.estado_envio.estado}</span>
+                                 </td>
+                                 <td class="text-right">$ ${new Intl.NumberFormat().format(pedido.total)}</td>
+                              </tr>`
+               }
+            } else {
+               html = `<tr><td colspan="6" class="text-center">No se encontro ninguna orden</td></tr>`
+            }
+            tbody.html(html)
+         }
+      })
+   }
 })

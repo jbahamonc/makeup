@@ -13,7 +13,9 @@ class PromocionController extends Controller
      */
     public function index()
     {
-        return view('promociones');
+        return view('promociones', [
+           'titulo' => 'Promociones'
+        ]);
     }
 
     /**

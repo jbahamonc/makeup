@@ -28,7 +28,10 @@ class User extends Authenticatable
         'password',
     ];
 
-    
-
     public $timestamps = false;
+
+    public function datos_envio()
+    {
+        return $this->hasOne('App\Cliente');
+    }
 }

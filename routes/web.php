@@ -33,6 +33,8 @@ Route::delete('/imagenes/{id}', 'ImagenController@destroy');
 Route::delete('/colores/{id}', 'PresentacionController@destroy');
 Route::post('/colores/{id}', 'PresentacionController@update');
 Route::get('/subcategorias/{id}', 'SubcategoriaController@listarSub');
+Route::post('/estado-pedido/{orden}/{estado}', 'PedidoController@changeEstate');
+Route::get('/buscar-orden/{tipo}/{id}', 'PedidoController@searchOrder');
 
 // Rutas de la api
 Route::prefix('api/v1')->group(function () {

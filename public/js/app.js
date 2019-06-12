@@ -138,8 +138,7 @@ $(document).ready(function () {
   }); // se borra la imagen del modal
 
   function deleteImgModal(img) {
-    image = $("#modal-imagen-".concat(img.id)); //console.log(image)
-
+    image = $("#modal-imagen-".concat(img.id));
     image.remove();
   } // si existe la imgen que se borro se valida que exista en las opciones del productos
   // de ser asi, se actualiza la imagen a la imagen por defecto
@@ -243,7 +242,100 @@ $(document).ready(function () {
         select2.html(html);
       }
     });
-  });
+  }); // Cambiar el esado del pedido
+
+  $("#changeEstate li a").on("click", function (e) {
+    e.preventDefault();
+    var estadoNew = 0;
+
+    if ($(this).text() == "Pagado") {
+      estadoNew = 2;
+    }
+
+    if ($(this).text() == "Cancelado") {
+      estadoNew = 3;
+    }
+
+    var orden = $("#numOrden").attr('data-orden');
+    $.ajax({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      url: "/estado-pedido/".concat(orden, "/").concat(estadoNew),
+      type: 'POST',
+      success: function success(response) {
+        var panel = $("#panelEstado");
+        panel.removeClass().addClass("panel media pad-all ".concat(response.clase_css));
+        panel.find('i').removeClass().addClass("icon-3x ".concat(response.icono));
+        panel.find('#nombreEstado').text(response.estado);
+      }
+    });
+  }); // Buscar orden por numero de pedido
+
+  $("#buscarOrdenPedido").on("keyup", function (e) {
+    e.preventDefault();
+    var code = e.keyCode ? e.keyCode : e.which;
+
+    if (code == 13) {
+      var orden = $(this).val();
+      buscarOrden('orden', tipoPago);
+    }
+  }); // Buscar orden por estado de pago
+
+  $("#buscarEstadoPago").on("change", function () {
+    var tipoPago = $("#buscarEstadoPago :selected").val();
+    buscarOrden('pago', tipoPago);
+  }); // Buscar orden por estado de envio
+
+  $("#buscarEstadoEnvio").on("change", function () {
+    var tipoPago = $("#buscarEstadoEnvio :selected").val();
+    buscarOrden('envio', tipoPago);
+  }); // Se hace la peticion para traer los pedido dependiendo del tipo
+
+  function buscarOrden(tipo, id) {
+    var tbody = $("#listaPedido");
+    $.ajax({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      url: "/buscar-orden/".concat(tipo, "/").concat(id),
+      type: 'GET',
+      success: function success(response) {
+        console.log(response);
+        var html = "";
+
+        if (response.length > 0) {
+          var _iteratorNormalCompletion2 = true;
+          var _didIteratorError2 = false;
+          var _iteratorError2 = undefined;
+
+          try {
+            for (var _iterator2 = response[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+              pedido = _step2.value;
+              html += "<tr>\n                                 <td><a class=\"text-info\" href=\"/pedidos/".concat(pedido.num_orden, "\">").concat(pedido.num_orden, "</a></td>\n                                 <td>").concat(pedido.fecha_pedido, "</td>\n                                 <td>").concat(pedido.cliente.name, "</td>\n                                 <td class=\"text-center\">\n                                     <span class=\"label label-table ").concat(pedido.estado_pago.clase_css, "\">").concat(pedido.estado_pago.estado, "</span>\n                                 </td>\n                                 <td class=\"text-center\">\n                                     <span class=\"label label-table label-default\">").concat(pedido.estado_envio.estado, "</span>\n                                 </td>\n                                 <td class=\"text-right\">$ ").concat(new Intl.NumberFormat().format(pedido.total), "</td>\n                              </tr>");
+            }
+          } catch (err) {
+            _didIteratorError2 = true;
+            _iteratorError2 = err;
+          } finally {
+            try {
+              if (!_iteratorNormalCompletion2 && _iterator2.return != null) {
+                _iterator2.return();
+              }
+            } finally {
+              if (_didIteratorError2) {
+                throw _iteratorError2;
+              }
+            }
+          }
+        } else {
+          html = "<tr><td colspan=\"6\" class=\"text-center\">No se encontro ninguna orden</td></tr>";
+        }
+
+        tbody.html(html);
+      }
+    });
+  }
 });
 
 /***/ }),

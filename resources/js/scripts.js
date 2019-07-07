@@ -10,6 +10,12 @@ $(document).ready(function () {
         form.submit()
     })
 
+    $("#save-promo").on("click", function () {
+        var form = document.getElementById('form-promo')
+        // Validar campo nombre
+        form.submit()
+    })
+
     $("body").on("click", ".btn-delete-img", function (e) {
       e.preventDefault()
       var btn = $(e.currentTarget)
@@ -169,7 +175,7 @@ $(document).ready(function () {
       var code = (e.keyCode ? e.keyCode : e.which)
       if (code == 13) {
          var orden = $(this).val()
-         buscarOrden('orden', tipoPago)
+         buscarOrden('orden', orden)
       }
    })
 
@@ -195,7 +201,7 @@ $(document).ready(function () {
          url      : `/buscar-orden/${tipo}/${id}`,
          type     : 'GET',
          success  : function ( response ) {
-            console.log(response)
+            // console.log(response)
             var html = ""
             if (response.length > 0) {
                for (pedido of response) {

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Pedido extends Model
 {
    public $timestamps = false;
-   
+
    public function cliente()
    {
       return $this->belongsTo('App\User');
@@ -25,6 +25,6 @@ class Pedido extends Model
 
    public function productos()
    {
-        return $this->belongsToMany('App\Producto', 'detalle_pedido')->withPivot('cantidad', 'importe');
+        return $this->belongsToMany('App\Producto', 'detalle_pedido')->withPivot('cantidad');
    }
 }

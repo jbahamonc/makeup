@@ -118,6 +118,11 @@ $(document).ready(function () {
 
     form.submit();
   });
+  $("#save-promo").on("click", function () {
+    var form = document.getElementById('form-promo'); // Validar campo nombre
+
+    form.submit();
+  });
   $("body").on("click", ".btn-delete-img", function (e) {
     e.preventDefault();
     var btn = $(e.currentTarget);
@@ -278,7 +283,7 @@ $(document).ready(function () {
 
     if (code == 13) {
       var orden = $(this).val();
-      buscarOrden('orden', tipoPago);
+      buscarOrden('orden', orden);
     }
   }); // Buscar orden por estado de pago
 
@@ -301,7 +306,7 @@ $(document).ready(function () {
       url: "/buscar-orden/".concat(tipo, "/").concat(id),
       type: 'GET',
       success: function success(response) {
-        console.log(response);
+        // console.log(response)
         var html = "";
 
         if (response.length > 0) {

@@ -23,7 +23,8 @@ Route::get('/productos', 'ProductoController@index');
 Route::get('/productos/editar/{id}', 'ProductoController@edit');
 Route::get('/categorias', 'CategoriaController@index');
 Route::get('/promociones', 'PromocionController@index');
-Route::get('/promociones/crear', 'PromocionController@create');
+Route::get('/promociones/editar/{id}', 'PromocionController@edit');
+Route::post('/promociones/{id}', 'PromocionController@update');
 Route::get('/pedidos', 'PedidoController@index');
 Route::get('/pedidos/{id}', 'PedidoController@edit');
 Route::post('/uploads', 'ProductoController@uploadImg');
@@ -48,4 +49,5 @@ Route::prefix('api/v1')->group(function () {
     Route::get('subcategoria_productos/{id}', 'IndexController@productosSubcategoria'); // Producos por subcategorias
     Route::get('favoritos', 'IndexController@mostrarFavoritos'); // Listado de productos favoritos pendiente agregar middleware auth
     Route::get('categorias/{id}', 'IndexController@subcategoriasPorCategoria'); // Listado de subcategorias por categoria
+    Route::post('pedido', 'IndexController@guardarPedido'); // Guarda el pedido realizado por el cliente
 });

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class SubcategoriaController extends Controller
 {
@@ -34,7 +35,15 @@ class SubcategoriaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+         $img = $request->file('img-subcat');
+         $url = $img->store('subcategorias', 'public');
+         $sub = new \App\Subcategoria();
+         $sub->categoria_id = $request->input('categoria');
+         $sub->nombre = $request->input('subcategoria');
+         $sub->imagen = $url;
+         $sub->save();
+
+         return redirect('categorias')->with('msg', 'La nueva subcategoria ha sido creada');
     }
 
     /**
@@ -56,7 +65,8 @@ class SubcategoriaController extends Controller
      */
     public function edit($id)
     {
-        //
+         $sub = \App\Subcategoria::find($id);
+         return response()->json($sub, 200);
     }
 
     /**
@@ -68,7 +78,22 @@ class SubcategoriaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+         // dd($request->input());
+           $sub = \App\Subcategoria::find($id);
+           $sub->nombre = $request->input('subcategoria');
+           $sub->categoria_id = $request->input('categoria');
+
+           if ( $request->file() ) {
+              $img = "";
+              $imgOld = $request->input('old-img-sub');
+              Storage::disk('public')->delete($imgOld);
+              $img = $request->file('img-subcat');
+              $sub->imagen = $img->store('subcategorias', 'public');
+           }
+
+           $sub->save();
+
+           return redirect('categorias')->with('msg', 'La informacion ha sido actualizada');
     }
 
     /**

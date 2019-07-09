@@ -145,7 +145,7 @@ $(document).ready(function () {
   function deleteImgModal(img) {
     image = $("#modal-imagen-".concat(img.id));
     image.remove();
-  } // si existe la imgen que se borro se valida que exista en las opciones del productos
+  } // si existe la imagen que se borro se valida que exista en las opciones del productos
   // de ser asi, se actualiza la imagen a la imagen por defecto
 
 
@@ -340,7 +340,43 @@ $(document).ready(function () {
         tbody.html(html);
       }
     });
-  }
+  } // Mostrar formulario para editar una categoria
+
+
+  $("#modal-categorias").on("show.bs.modal", function (e) {
+    var id = $(e.relatedTarget).attr('data-id');
+    var modal = $(this);
+    modal.find('form').attr('action', "categorias/".concat(id));
+    $.ajax({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      url: "/categorias/".concat(id),
+      type: 'GET',
+      success: function success(response) {
+        modal.find('#categoria').val(response.nombre);
+        modal.find('#old-img').val(response.imagen);
+      }
+    });
+  }); // Mostrar formulario para editar una subcategoria
+
+  $("#modal-subcategorias").on("show.bs.modal", function (e) {
+    var id = $(e.relatedTarget).attr('data-id');
+    var modal = $(this);
+    modal.find('form').attr('action', "subcategorias/".concat(id));
+    $.ajax({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      url: "/subcategorias/edit/".concat(id),
+      type: 'GET',
+      success: function success(response) {
+        modal.find('#categoria').val(response.categoria_id);
+        modal.find('#old-img-sub').val(response.imagen);
+        modal.find('#subcategoria').val(response.nombre);
+      }
+    });
+  });
 });
 
 /***/ }),

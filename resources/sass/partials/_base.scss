@@ -129,6 +129,14 @@
    }
 }
 
+.modal-backdrop {
+   z-index: 10000 !important;
+}
+
+.modal {
+   z-index: 10001 !important;
+}
+
 @media (min-width: 768px) {
   .navbar-header:before {
     background-color: #fff !important;

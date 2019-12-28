@@ -21,8 +21,7 @@
         <header id="navbar" class="">
             <div id="navbar-container" class="boxed">
                 <div class="navbar-header">
-                    <a href="" class="navbar-brand">
-                        <img src="http://www.themeon.net/nifty/v2.9.1/img/logo.png" alt="Nifty Logo" class="brand-icon">
+                    <a href="" class="navbar-brand">                        
                         <div class="brand-title">
                             <span class="brand-text">MakeUP</span>
                         </div>
@@ -73,7 +72,7 @@
                             </li>
                             <li>
                                 <a href="/promociones">
-                                    <i class="demo-pli-gear"></i>
+                                    <i class="demo-pli-basket-coins"></i>
                                     <span class="menu-title">
                                         Promociones
                                     </span>
@@ -81,7 +80,7 @@
                             </li>
                             <li>
                                 <a href="/pedidos">
-                                    <i class="demo-pli-gear"></i>
+                                    <i class="demo-pli-file-text-image"></i>
                                     <span class="menu-title">
                                         Pedidos
                                     </span>

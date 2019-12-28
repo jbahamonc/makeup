@@ -52,8 +52,13 @@ Route::prefix('api/v1')->group(function () {
     Route::get('productos/{id}', 'IndexController@detalleProducto'); // Detalle del producto
     Route::get('categoria_producto/{id}', 'IndexController@productosCategoria'); // Productos de una categoria
     Route::get('subcategorias', 'IndexController@subcategorias'); // Listado de subcategorias
-    Route::get('subcategoria_productos/{id}', 'IndexController@productosSubcategoria'); // Producos por subcategorias
-    Route::get('favoritos', 'IndexController@mostrarFavoritos'); // Listado de productos favoritos pendiente agregar middleware auth
+    Route::get('subcategoria_productos/{id}', 'IndexController@productosSubcategoria'); // Productos por subcategorias
+    Route::post('favoritos', 'IndexController@mostrarFavoritos'); // Listado de productos favoritos pendiente se debe validar con token
+    Route::post('guardar_favoritos', 'IndexController@guardarFavoritos'); // Guarda un nuevo producto favorito
     Route::get('categorias/{id}', 'IndexController@subcategoriasPorCategoria'); // Listado de subcategorias por categoria
     Route::post('pedido', 'IndexController@guardarPedido'); // Guarda el pedido realizado por el cliente
+
+    // routes para la app *************************************************************************
+    Route::post('login', 'IndexController@login');  // ruta para el login de la app
+    Route::post('register', 'IndexController@registrarUserApp'); // ruta para registrar un usuario
 });

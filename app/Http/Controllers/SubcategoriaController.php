@@ -40,6 +40,12 @@ class SubcategoriaController extends Controller
          $sub = new \App\Subcategoria();
          $sub->categoria_id = $request->input('categoria');
          $sub->nombre = $request->input('subcategoria');
+         if ($_SERVER['SERVER_NAME'] != '127.0.0.1') {
+            $url = 'https://files.mundomaquillajecolombia.com/' . $url; 
+        }
+        else {
+            $url = 'http://localhost:8000/storage/' . $url; 
+        }
          $sub->imagen = $url;
          $sub->save();
 
@@ -78,22 +84,29 @@ class SubcategoriaController extends Controller
      */
     public function update(Request $request, $id)
     {
-         // dd($request->input());
-           $sub = \App\Subcategoria::find($id);
-           $sub->nombre = $request->input('subcategoria');
-           $sub->categoria_id = $request->input('categoria');
+        // dd($request->input());
+        $sub = \App\Subcategoria::find($id);
+        $sub->nombre = $request->input('subcategoria');
+        $sub->categoria_id = $request->input('categoria');
 
-           if ( $request->file() ) {
-              $img = "";
-              $imgOld = $request->input('old-img-sub');
-              Storage::disk('public')->delete($imgOld);
-              $img = $request->file('img-subcat');
-              $sub->imagen = $img->store('subcategorias', 'public');
-           }
+        if ( $request->file() ) {
+            $img = "";
+            $imgOld = $request->input('old-img-sub');
+            Storage::disk('public')->delete($imgOld);
+            $img = $request->file('img-subcat');
+            $url = $img->store('subcategorias', 'public');
+            if ($_SERVER['SERVER_NAME'] != '127.0.0.1') {
+                $url = 'https://files.mundomaquillajecolombia.com/' . $url; 
+            }
+            else {
+                $url = 'http://localhost:8000/storage/' . $url; 
+            }
+            $sub->imagen = $url;
+        }
 
-           $sub->save();
+        $sub->save();
 
-           return redirect('categorias')->with('msg', 'La informacion ha sido actualizada');
+        return redirect('categorias')->with('msg', 'La informacion ha sido actualizada');
     }
 
     /**

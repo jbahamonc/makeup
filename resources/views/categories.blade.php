@@ -38,7 +38,7 @@
                                @if ( sizeof($categorias) > 0 )
                                   @foreach ($categorias as $cat)
                                      <tr>
-                                         <td><img class="" width="50" src="{{ asset('storage/'. $cat->imagen) }}" alt=""></td>
+                                         <td><img class="" width="50" src="{{ $cat->imagen }}" alt=""></td>
                                          <td>{{ $cat->nombre }}</td>
                                          <td class="text-center">
                                              <button class="btn btn-sm btn-danger hidden">
@@ -83,10 +83,10 @@
                                 </tr>
                             </thead>
                             <tbody>
-                               @if ( sizeof($subcategorias) > 0 )
-                                 @foreach ($subcategorias as $sub)
+                                @if ( sizeof($subcategorias) > 0 )
+                                    @foreach ($subcategorias as $sub)
                                     <tr>
-                                        <td><img width="50" src="{{ asset('storage/'. $sub->imagen) }}" alt=""></td>
+                                        <td><img width="50" src="{{ $sub->imagen }}" alt=""></td>
                                         <td>{{ $sub->categoria->nombre }}</td>
                                         <td>{{ $sub->nombre }}</td>
                                         <td class="text-center">
@@ -98,8 +98,8 @@
                                             </button>
                                         </td>
                                     </tr>
-                                 @endforeach
-                              @else
+                                    @endforeach
+                                @else
                                  <tr>
                                     <td colspan="3">No hay categorias registradas</td>
                                  </tr>
@@ -122,13 +122,13 @@
                    <!--Modal header-->
                    <div class="modal-header">
                        <button type="button" class="close" data-dismiss="modal"><i class="pci-cross pci-circle"></i></button>
-                       <h4 class="modal-title">Modal Heading</h4>
+                       <h4 class="modal-title">Registro de Categorias</h4>
                    </div>
                    <!--Modal body-->
                    <div class="modal-body">
                          <div class="form-group">
                               <label class="control-label" for="name">Nombre de la categoria</label>
-                              <input id="categoria" name="categoria" type="text" class="form-control input-md" required>
+                              <input id="categoria" required name="categoria" type="text" class="form-control input-md" required>
                          </div>
                          <div class="form-group">
                             <label class="control-label" for="name">Seleccione imagen</label>
@@ -161,7 +161,7 @@
                 </div>
                 <!--Modal body-->
                 <div class="modal-body">
-                     <div class="form-group">
+                    <div class="form-group">
                         <label class="control-label" for="categoria">Categorias</label>
                         <div class="select">
                             <select name="categoria" id="categoria" required>
@@ -172,17 +172,17 @@
                                    @endforeach
                              </select>
                         </div>
-                      </div>
-                      <div class="form-group">
+                    </div>
+                    <div class="form-group">
                            <label class="control-label" for="subcategoria">Nombre de la subcategoria</label>
                            <input id="subcategoria" name="subcategoria" type="text" class="form-control input-md" required>
-                      </div>
-                      <div class="form-group">
+                    </div>
+                    <div class="form-group">
                          <label class="control-label" for="img-subcat">Seleccione imagen</label>
                          <span class="btn btn-primary btn-file">
-		                          Browse... <input type="file" name="img-subcat">
-				             </span>
-                      </div>
+    	                          Browse... <input type="file" name="img-subcat">
+    			            </span>
+                    </div>
                 </div>
                 <!--Modal footer-->
                 <div class="modal-footer">

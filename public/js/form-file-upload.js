@@ -110,7 +110,7 @@ $(document).on('nifty.ready', function() {
       //console.log(response)
       var template = `<div class="col-xs-6">
          <div class="thumbnail">
-            <img alt="" style="height: 100px; width: 100%; display: block;" src="/storage/${response.imagen }" data-holder-rendered="true">
+            <img alt="" style="height: 100px; width: 100%; display: block;" src="${response.imagen}" data-holder-rendered="true">
             <div class="caption text-center">
                  <a href="#" class="btn btn-sm btn-default btn-circle btn-delete-img" data-img-id="${response.id }">
                      <i class="demo-pli-recycling" id="image-delete"></i>

@@ -229,37 +229,44 @@ $(document).ready(function () {
    // Mostrar formulario para editar una categoria
    $("#modal-categorias").on("show.bs.modal", function (e) {
       var id = $(e.relatedTarget).attr('data-id')
-      var modal = $(this)
-      modal.find('form').attr('action', `categorias/${id}`)
-      $.ajax({
-         headers: {
-             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-         },
-         url      : `/categorias/${id}`,
-         type     : 'GET',
-         success  : function ( response ) {
-            modal.find('#categoria').val(response.nombre)
-            modal.find('#old-img').val(response.imagen)
-         }
-      })
+      
+      if (id !== undefined) {
+         console.log(id)
+        var modal = $(this)
+        modal.find('form').attr('action', `categorias/${id}`)
+        $.ajax({
+           headers: {
+               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+           },
+           url      : `/categorias/${id}`,
+           type     : 'GET',
+           success  : function ( response ) {
+              modal.find('#categoria').val(response.nombre)
+              modal.find('#old-img').val(response.imagen)
+           }
+        })
+      }
    })
 
    // Mostrar formulario para editar una subcategoria
    $("#modal-subcategorias").on("show.bs.modal", function (e) {
       var id = $(e.relatedTarget).attr('data-id')
-      var modal = $(this)
-      modal.find('form').attr('action', `subcategorias/${id}`)
-      $.ajax({
-         headers: {
-             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-         },
-         url      : `/subcategorias/edit/${id}`,
-         type     : 'GET',
-         success  : function ( response ) {
-            modal.find('#categoria').val(response.categoria_id)
-            modal.find('#old-img-sub').val(response.imagen)
-            modal.find('#subcategoria').val(response.nombre)
-         }
-      })
+      if (id !== undefined) {
+         console.log(id)
+         var modal = $(this)
+         modal.find('form').attr('action', `subcategorias/${id}`)
+         $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url      : `/subcategorias/edit/${id}`,
+            type     : 'GET',
+            success  : function ( response ) {
+               modal.find('#categoria').val(response.categoria_id)
+               modal.find('#old-img-sub').val(response.imagen)
+               modal.find('#subcategoria').val(response.nombre)
+            }
+         })
+      }
    })
 })

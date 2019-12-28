@@ -103,8 +103,14 @@ class PromocionController extends Controller
         $promo->descuento = $request->input('descuento');
         $imagen = $request->file('imagen');
         if ($imagen) {
-           $url = $imagen->store('promociones', 'public');
-           $promo->imagen = $url;
+            $url = $imagen->store('promociones', 'public');
+            if ($_SERVER['SERVER_NAME'] != '127.0.0.1') {
+                $url = 'https://files.mundomaquillajecolombia.com/' . $url; 
+            }
+            else {
+                $url = 'http://localhost:8000/storage/' . $url; 
+            }
+            $promo->imagen = $url;
         }        
         $promo->save();
 

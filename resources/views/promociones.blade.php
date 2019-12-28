@@ -24,7 +24,7 @@
                       @foreach ($promos as $pro)
                           <tr>
                               <td class="text-center">
-                                  <img width="50" src="{{ asset('storage/'. $pro->imagen) }}" alt="">
+                                  <img width="50" src="{{ $pro->imagen }}" alt="">
                               </td>
                               <td>
                                   <span class="text-main">{{ $pro->nombre }}</span>
@@ -39,9 +39,9 @@
                                           <i class="demo-psi-dot-horizontal icon-lg"></i>
                                       </button>
                                       <ul class="dropdown-menu dropdown-menu-right" style="">
-                                          <li><a href="#">Eliminar</a></li>
+                                          <li class="hide"><a href="#">Eliminar</a></li>
                                           <li><a href="/promociones/editar/{{ $pro->codigo }}">Ver detalles</a></li>
-                                          <li><a href="#">Ver productos</a></li>
+                                          <li class="hide"><a href="#">Ver productos</a></li>
                                       </ul>
                                   </div>
                               </td>

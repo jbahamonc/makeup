@@ -17,18 +17,18 @@
            @foreach ($productos as $pro)
              @if ($pro->codigo != 'euDYCJQMId')
                <div class="col-xs-12 col-sm-6 col-md-3">
-                   <div class="panel pos-rel">
+                   <div class="panel pos-rel products">
                        <div class="pad-all text-center">
                            <a href="#">
-                               <img alt="{{ $pro->nombre }}" class="img-lg img-circle mar-ver" src="{{ (count($pro->imagenes) > 0)? asset('storage/' . $pro->imagenes[0]->url) : asset('image/img-placeholder.jpg') }}">
-                               <p class="text-lg text-semibold text-main">{{ $pro->nombre }}</p>
-                               <p class="text-sm text-left">Ref <span class="pull-right">{{ $pro->referencia }}</span></p>
+                               <img alt="{{ $pro->nombre }}" class="img-lg img-circle mar-ver" src="{{ (count($pro->imagenes) > 0)? $pro->imagenes[0]->url : asset('image/img-placeholder.jpg') }}">
+                               <p class="text-lg text-semibold text-main title">{{ $pro->nombre }}</p>
+                               <p class="text-sm text-left">Ref <span class="pull-right">{{ ($pro->referencia != "")? $pro->referencia : 'N/A' }}</span></p>
                                <p class="text-sm text-left">En almacen <span class="pull-right">{{ $pro->cantidad }} UND</span></p>
                                <p class="text-normal text-dark text-bold">Precio: ${{ number_format($pro->precio_normal, 0) }}</p>
                            </a>
                            <div class="text-center pad-to">
                                <div class="btn-group">
-                                   <a href="" class="btn btn-sm btn-default"><i class="demo-pli-consulting icon-lg icon-fw"></i> Eliminar</a>
+                                   <a href="" class="btn btn-sm btn-default hide"><i class="demo-pli-consulting icon-lg icon-fw"></i> Eliminar</a>
                                    <a href="/productos/editar/{{ $pro->codigo }}" class="btn btn-sm btn-default"><i class="demo-pli-pen-5 icon-lg icon-fw"></i> Editar</a>
                                </div>
                            </div>

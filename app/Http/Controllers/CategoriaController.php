@@ -48,6 +48,12 @@ class CategoriaController extends Controller
         $url = $img->store('categorias', 'public');
         $cat = new \App\Categoria();
         $cat->nombre = $request->input('categoria');
+        if ($_SERVER['SERVER_NAME'] != '127.0.0.1') {
+            $url = 'https://files.mundomaquillajecolombia.com/' . $url; 
+        }
+        else {
+            $url = 'http://localhost:8000/storage/' . $url; 
+        }
         $cat->imagen = $url;
         $cat->save();
 
@@ -86,7 +92,7 @@ class CategoriaController extends Controller
      */
     public function update(Request $request, $id)
     {
-      // dd($request->input());
+       //dd($request->input());
         $cat = \App\Categoria::find($id);
         $cat->nombre = $request->input('categoria');
 
@@ -95,12 +101,19 @@ class CategoriaController extends Controller
            $imgOld = $request->input('old-img');
            Storage::disk('public')->delete($imgOld);
            $img = $request->file('img');
-           $cat->imagen = $img->store('categorias', 'public');
+           $url = $img->store('categorias', 'public');
+           if ($_SERVER['SERVER_NAME'] != '127.0.0.1') {
+                $url = 'https://files.mundomaquillajecolombia.com/' . $url; 
+            }
+            else {
+                $url = 'http://localhost:8000/storage/' . $url;
+            }
+           $cat->imagen = $url;
         }
 
         $cat->save();
 
-        return redirect('categorias')->with('msg', 'La informacion ha sido actualizada');
+        return redirect('categorias')->with('msg', 'La nueva categoria ha sido creada');
     }
 
     /**

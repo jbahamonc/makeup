@@ -158,15 +158,21 @@ class ProductoController extends Controller
         $cod = $req->input('codigo');
         $url = $files->store('productos', 'public');
         $imagen = new \App\Imagen();
+        if ($_SERVER['SERVER_NAME'] != '127.0.0.1') {
+            $url = 'https://files.mundomaquillajecolombia.com/' . $url; 
+        }
+        else {
+            $url = 'http://localhost:8000/storage/' . $url; 
+        }
         $imagen->url = $url;
         $imagen->producto_id = $cod;
         $imagen->save();
 
         $arr = [
-            'message' => 'Image saved Successfully',
-            'imagen' => $url,
-            'codigo' => $cod,
-            'id'     => $imagen->id
+            'message'   => 'Image saved Successfully',
+            'imagen'    => $url,
+            'codigo'    => $cod,
+            'id'        => $imagen->id
         ];
         return response()->json($arr, 200);
     }

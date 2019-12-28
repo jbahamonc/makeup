@@ -52,7 +52,7 @@
 		             </div>
                    <div class="panel-body" id="img-promo">
                         <div class="thumbnail mar-no">
-                           <img alt="" src="{{ asset('storage/'.$promocion->imagen) }}" data-holder-rendered="true">
+                           <img alt="" src="{{ $promocion->imagen }}" data-holder-rendered="true">
                         </div>
                    </div>
                 </div>

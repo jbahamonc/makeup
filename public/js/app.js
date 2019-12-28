@@ -345,37 +345,45 @@ $(document).ready(function () {
 
   $("#modal-categorias").on("show.bs.modal", function (e) {
     var id = $(e.relatedTarget).attr('data-id');
-    var modal = $(this);
-    modal.find('form').attr('action', "categorias/".concat(id));
-    $.ajax({
-      headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-      },
-      url: "/categorias/".concat(id),
-      type: 'GET',
-      success: function success(response) {
-        modal.find('#categoria').val(response.nombre);
-        modal.find('#old-img').val(response.imagen);
-      }
-    });
+
+    if (id !== undefined) {
+      console.log(id);
+      var modal = $(this);
+      modal.find('form').attr('action', "categorias/".concat(id));
+      $.ajax({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        url: "/categorias/".concat(id),
+        type: 'GET',
+        success: function success(response) {
+          modal.find('#categoria').val(response.nombre);
+          modal.find('#old-img').val(response.imagen);
+        }
+      });
+    }
   }); // Mostrar formulario para editar una subcategoria
 
   $("#modal-subcategorias").on("show.bs.modal", function (e) {
     var id = $(e.relatedTarget).attr('data-id');
-    var modal = $(this);
-    modal.find('form').attr('action', "subcategorias/".concat(id));
-    $.ajax({
-      headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-      },
-      url: "/subcategorias/edit/".concat(id),
-      type: 'GET',
-      success: function success(response) {
-        modal.find('#categoria').val(response.categoria_id);
-        modal.find('#old-img-sub').val(response.imagen);
-        modal.find('#subcategoria').val(response.nombre);
-      }
-    });
+
+    if (id !== undefined) {
+      console.log(id);
+      var modal = $(this);
+      modal.find('form').attr('action', "subcategorias/".concat(id));
+      $.ajax({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        url: "/subcategorias/edit/".concat(id),
+        type: 'GET',
+        success: function success(response) {
+          modal.find('#categoria').val(response.categoria_id);
+          modal.find('#old-img-sub').val(response.imagen);
+          modal.find('#subcategoria').val(response.nombre);
+        }
+      });
+    }
   });
 });
 
@@ -399,8 +407,8 @@ $(document).ready(function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\xampp\htdocs\makeup\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! E:\xampp\htdocs\makeup\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\Documentos\makeup\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\Documentos\makeup\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

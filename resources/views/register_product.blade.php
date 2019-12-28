@@ -67,7 +67,7 @@
                            @foreach ($producto->imagenes as $img)
                               <div class="col-xs-6">
                                  <div class="thumbnail">
-                                    <img alt="{{ $img->nombre }}" style="height: 100px; width: 100%; display: block;" src="{{ asset('storage/'.$img->url) }}" data-holder-rendered="true">
+                                    <img alt="{{ $img->nombre }}" style="height: 100px; width: 100%; display: block;" src="{{ $img->url }}" data-holder-rendered="true">
                                     <div class="caption text-center">
                                          <a href="#" class="btn btn-sm btn-default btn-circle btn-delete-img" data-img-id="{{ $img->id }}">
                                              <i class="demo-pli-recycling" id="image-delete"></i>
@@ -160,7 +160,7 @@
                                                <a href="#" data-target="#default-modal" data-toggle="modal">
                                                   <input type="hidden" value="{{ $color->id }}">
                                                   <input type="hidden" name="imgColor[]" value="{{ $color->imagen }}">
-                                                  <img src="{{ asset('storage/' . $color->imagen) }}">
+                                                  <img src="{{ $color->imagen }}">
                                                </a>
                                           </div>
                                           <div class="caption text-center">
@@ -207,7 +207,7 @@
                        @foreach ($producto->imagenes as $img)
                           <div class="col-xs-3" id="modal-imagen-{{ $img->id }}">
                              <a href="#" class="thumbnail colorImg">
-                                <img alt="{{ $img->nombre }}" style="height: 100px; width: 100%; display: block;" data-url="{{ $img->url }}" src="{{ asset('storage/'.$img->url) }}" data-holder-rendered="true">
+                                <img alt="{{ $img->nombre }}" style="height: 100px; width: 100%; display: block;" data-url="{{ $img->url }}" src="{{ $img->url }}" data-holder-rendered="true">
                              </a>
                           </div>
                        @endforeach
